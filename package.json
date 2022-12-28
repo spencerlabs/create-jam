@@ -6,13 +6,12 @@
   "bin": "./dist/src/create-jam.js",
   "license": "MIT",
   "files": [
-    "dist",
-    "templates"
+    "dist"
   ],
   "scripts": {
     "cmd": "rm -rf example-app && ts-node src/index.ts example-app",
     "test": "jest",
-    "build": "rm -rf dist && tsc -p ."
+    "build": "rm -rf dist && tsc -p . && cp -r templates dist/templates"
   },
   "dependencies": {
     "chalk": "4.1.2",
