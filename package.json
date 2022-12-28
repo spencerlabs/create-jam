@@ -1,7 +1,7 @@
 {
   "name": "create-jam",
   "description": "Command Line Interface for quickly spinning up new Jamstack apps",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "main": "./dist/src/create-jam.js",
   "bin": "./dist/src/create-jam.js",
   "license": "MIT",
@@ -9,7 +9,7 @@
     "dist"
   ],
   "scripts": {
-    "cmd": "rm -rf example-app && ts-node src/index.ts example-app",
+    "cmd": "rm -rf example-app && ts-node src/create-jam.ts example-app",
     "test": "jest",
     "build": "rm -rf dist && tsc -p . && cp -r templates dist/templates"
   },
