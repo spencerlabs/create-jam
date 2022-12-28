@@ -94,7 +94,7 @@ jobs:
         continue-on-error: true
         working-directory: ./repo
         run: |
-          git add ./templates/${{ inputs.name }}/${{ inputs.type }}/*
+          git add ./templates/${{ inputs.name }}/${{ inputs.type }}
           git commit -m 'Update templates/${{ inputs.name }}/${{ inputs.type }}'
           git push origin template/${{ inputs.name }}
 
