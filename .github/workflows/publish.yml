@@ -1,0 +1,40 @@
+name: Publish Package to npm
+on:
+  release:
+    types: [published]
+
+jobs:
+  create_jam:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      # Setup .npmrc file to publish to npm
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - run: yarn
+      - run: yarn build
+      - run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  create_jam_app:
+    runs_on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      # Setup .npmrc file to publish to npm
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - run: npm pkg set name=create-jam-app
+      - run: yarn
+      - run: yarn build
+      - run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

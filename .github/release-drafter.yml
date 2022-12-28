@@ -1,0 +1,32 @@
+name-template: 'v$RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
+template: |
+  # What's Changed
+  $CHANGES
+categories:
+  - title: ':boom: Breaking Changes'
+    label: 'breaking change'
+  - title: ':sparkles: Enhancement'
+    label: 'enhancement'
+  - title: ':bug: Bug Fixes'
+    label: 'bug'
+  - title: ':book: Documentation'
+    label: 'documentation'
+  - title: ':package: Template'
+    label: 'template/*'
+
+version-resolver:
+  major:
+    labels:
+      - 'breaking change'
+  minor:
+    labels:
+      - 'enhancement'
+  patch:
+    labels:
+      - 'bug'
+      - 'documentation'
+      - 'template/*'
+
+exclude-labels:
+  - 'skip-changelog'

@@ -1,0 +1,21 @@
+name: Create Next.js App
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * *'
+
+jobs:
+  create_apps:
+    strategy:
+      fail-fast: false
+      matrix:
+        app:
+          - "{ type: 'typescript', flags: '--typescript' }"
+          - "{ type: 'javascript', flags: '--javascript' }"
+    uses: spencerlabs/create-jam/.github/workflows/create-app.yml@next
+    with:
+      name: next
+      command: next-app
+      type: ${{ fromJson(matrix.app).type }}
+      flags: "--eslint ${{ fromJson(matrix.app).flags }}"
+      color: "000000"

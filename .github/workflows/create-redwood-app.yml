@@ -1,0 +1,21 @@
+name: Create Redwood App
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * *'
+
+jobs:
+  create_apps:
+    strategy:
+      fail-fast: false
+      matrix:
+        app:
+          - "{ type: 'typescript', flags: '--typescript --no-yarn-install' }"
+          - "{ type: 'javascript', flags: '--no-ts' }"
+    uses: spencerlabs/create-jam/.github/workflows/create-app.yml@next
+    with:
+      name: redwood
+      command: redwood-app
+      type: ${{ fromJson(matrix.app).type }}
+      flags: "--git false ${{ fromJson(matrix.app).flags }}"
+      color: "bf4722"

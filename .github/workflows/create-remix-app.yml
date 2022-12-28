@@ -1,0 +1,31 @@
+name: Create Remix App
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 4 * * *'
+
+jobs:
+  create_apps:
+    strategy:
+      fail-fast: false
+      matrix:
+        app:
+          - "{ type: 'ts', flags: '--typescript' }"
+          - "{ type: 'js', flags: '--no-typescript' }"
+        template:
+          - remix
+          - express
+          - arc
+          - fly
+          - netlify
+          - vercel
+          - cloudflare-pages
+          - cloudflare-workers
+          - deno
+    uses: spencerlabs/create-jam/.github/workflows/create-app.yml@next
+    with:
+      name: remix
+      command: remix
+      type: "${{ matrix.template }}-${{ fromJson(matrix.app).type }}"
+      flags: "--template ${{ matrix.template }} --no-install ${{ fromJson(matrix.app).flags }}"
+      color: 3992ff
