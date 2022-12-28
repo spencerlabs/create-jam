@@ -38,26 +38,19 @@ jobs:
           sudo mkdir app
           
       - name: Run create command
+        working-directory: ./app
         run: |
-          cd app
           sudo yarn create ${{ inputs.command }} jam-app ${{ inputs.flags }}
       
         # delete extra files and add empty lock file to prevent workspace install
       - name: Clean up app
+        working-directory: ./app/jam-app
         run: |
-          cd app/jam-app
           sudo rm -f yarn.lock
           sudo rm -f package-lock.json
           sudo rm -rf .git
           sudo rm -rf node_modules
           sudo touch yarn.lock
-          
-      - name: Move folders
-        run: |
-          sudo rm -rf repo/templates/${{ inputs.name }}/${{ inputs.type }}
-          sudo mkdir -p repo/templates/${{ inputs.name }}
-          sudo mv app/jam-app repo/templates/${{ inputs.name }}/${{ inputs.type }}
-          sudo rm -rf app
 
         # create or switch to template branch
       - name: Switch to template branch
@@ -88,13 +81,20 @@ jobs:
         working-directory: ./repo
         run: |
           git pull origin template/${{ inputs.name }}
+          
+      - name: Move folders
+        run: |
+          sudo rm -rf repo/templates/${{ inputs.name }}/${{ inputs.type }}
+          sudo mkdir -p repo/templates/${{ inputs.name }}
+          sudo mv app/jam-app repo/templates/${{ inputs.name }}/${{ inputs.type }}
+          sudo rm -rf app
 
       - name: Commit changes
         # an error here most likely means no changes, so we let it pass
         continue-on-error: true
         working-directory: ./repo
         run: |
-          git add ./templates/${{ inputs.name }}/*
+          git add ./templates/${{ inputs.name }}/${{ inputs.type }}/*
           git commit -m 'Update templates/${{ inputs.name }}/${{ inputs.type }}'
           git push origin template/${{ inputs.name }}
 
