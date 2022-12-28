@@ -13,7 +13,7 @@ jobs:
         app:
           - "{ type: 'typescript', flags: '--typescript --no-yarn-install' }"
           - "{ type: 'javascript', flags: '--no-ts' }"
-    uses: spencerlabs/create-jam/.github/workflows/create-app.yml@next
+    uses: ./.github/workflows/create-app.yml
     with:
       name: redwood
       command: redwood-app
