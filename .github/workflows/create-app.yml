@@ -32,16 +32,16 @@ jobs:
         with:
           fetch-depth: '0'
           path: repo
-          
+
       - name: Create app folder
         run: |
           sudo mkdir app
-          
+
       - name: Run create command
         working-directory: ./app
         run: |
           sudo yarn create ${{ inputs.command }} jam-app ${{ inputs.flags }}
-      
+
         # delete extra files and add empty lock file to prevent workspace install
       - name: Clean up app
         working-directory: ./app/jam-app
@@ -51,6 +51,7 @@ jobs:
           sudo rm -rf .git
           sudo rm -rf node_modules
           sudo touch yarn.lock
+          [-f .gitignore] sudo mv .gitignore gitignore.template
 
         # create or switch to template branch
       - name: Switch to template branch
@@ -75,13 +76,13 @@ jobs:
         working-directory: ./repo
         run: |
           git push origin template/${{ inputs.name }}
-      
+
       - if: steps.remote_check.outcome == 'success'
         name: Pull remote
         working-directory: ./repo
         run: |
           git pull origin template/${{ inputs.name }}
-          
+
       - name: Move folders
         run: |
           sudo rm -rf repo/templates/${{ inputs.name }}/${{ inputs.type }}
@@ -105,5 +106,5 @@ jobs:
         run: |
           gh label create 'template/${{ inputs.name }}' -f -d 'Updates to ${{ inputs.name }} templates' -c ${{ inputs.color }}
           gh pr create -B ${{ github.event.repository.default_branch }} -H template/${{ inputs.name }} -l template/${{ inputs.name }} -t 'Updating ${{ inputs.name }} template(s)' -b ':robot: *An automated PR*
-  
+
           Generated template(s) with `yarn create ${{ inputs.command }}` in `./templates/${{ inputs.name }}`'
