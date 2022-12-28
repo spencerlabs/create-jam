@@ -29,4 +29,4 @@ version-resolver:
       - 'template/*'
 
 exclude-labels:
-  - 'skip-changelog'
+  - 'skip changelog'
