@@ -26,6 +26,9 @@ on:
 jobs:
   create_app:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     steps:
       - name: Checkout current repo
         uses: actions/checkout@v3
@@ -46,12 +49,10 @@ jobs:
       - name: Clean up app
         working-directory: ./app/jam-app
         run: |
-          sudo rm -f yarn.lock
-          sudo rm -f package-lock.json
-          sudo rm -rf .git
-          sudo rm -rf node_modules
+          sudo rm -f yarn.lock package-lock.json
+          sudo rm -rf .git node_modules
           sudo touch yarn.lock
-          [-f .gitignore] sudo mv .gitignore gitignore.template
+          [ -f ".gitignore" ] && sudo mv .gitignore gitignore.template
 
         # create or switch to template branch
       - name: Switch to template branch
@@ -71,17 +72,14 @@ jobs:
           git ls-remote --exit-code --heads origin template/${{ inputs.name }}
 
         # pull or create remote branch
-      - if: steps.remote_check.outcome == 'failure'
-        name: Create remote
+      - name: Create or pull remote
         working-directory: ./repo
         run: |
-          git push origin template/${{ inputs.name }}
-
-      - if: steps.remote_check.outcome == 'success'
-        name: Pull remote
-        working-directory: ./repo
-        run: |
-          git pull origin template/${{ inputs.name }}
+          if [ "${{ steps.remote_check.outcome }}" == "failure" ]; then
+            git push origin template/${{ inputs.name }}
+          else
+            git pull origin template/${{ inputs.name }}
+          fi
 
       - name: Move folders
         run: |
