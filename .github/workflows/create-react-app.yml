@@ -13,7 +13,7 @@ jobs:
         app:
           - "{ type: 'typescript', flags: '--template typescript' }"
           - "{ type: 'javascript', flags: '' }"
-    uses: spencerlabs/create-jam/.github/workflows/create-app.yml@next
+    uses: ./.github/workflows/create-app.yml
     with:
       name: react
       command: react-app

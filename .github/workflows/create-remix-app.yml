@@ -23,7 +23,7 @@ jobs:
           - cloudflare-pages
           - cloudflare-workers
           - deno
-    uses: spencerlabs/create-jam/.github/workflows/create-app.yml@next
+    uses: ./.github/workflows/create-app.yml
     with:
       name: remix
       command: remix

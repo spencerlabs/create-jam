@@ -202,6 +202,12 @@ import { name, version } from '../package.json'
               },
             }
           )
+
+          const gitignoreFile = path.join(newAppDir, 'gitignore.template')
+
+          if (fs.existsSync(gitignoreFile)) {
+            fs.rename(gitignoreFile, path.join(newAppDir, '.gitignore'))
+          }
         },
       },
       {
