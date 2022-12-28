@@ -1,7 +1,7 @@
 {
   "name": "create-jam",
   "description": "Command Line Interface for quickly spinning up new Jamstack apps",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "./dist/src/create-jam.js",
   "bin": "./dist/src/create-jam.js",
   "license": "MIT",
