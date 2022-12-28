@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "declaration": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "preserve",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "outDir": "dist",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "esnext",
+    "typeRoots": ["./node_modules/@types"],
+    "paths": {
+      "src/*": [
+        "./src/*"
+      ],
+      "types/*": ["./types/*"]
+    },
+  },
+  "include": [
+    "src",
+    "types"
+  ],
+  "ts-node": {
+    "files": true
+  }
+}
