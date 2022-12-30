@@ -15,7 +15,6 @@ on:
         description: "Base create command (ex. 'react-app' or 'gatsby init')"
         type: string
       type:
-        required: true
         description: "Add template type for app subdirectory (ex. 'javascript', 'typescript', or 'remix-ts')"
         type: string
       flags:
@@ -105,9 +104,14 @@ jobs:
 
       - name: Move folders
         run: |
-          sudo rm -rf repo/templates/${{ inputs.name }}/${{ inputs.type }}
-          sudo mkdir -p repo/templates/${{ inputs.name }}
-          sudo mv app/jam-app repo/templates/${{ inputs.name }}/${{ inputs.type }}
+          if [ "${{ inputs.type }}" = true ]; then
+            sudo rm -rf repo/templates/${{ inputs.name }}/${{ inputs.type }}
+            sudo mkdir -p repo/templates/${{ inputs.name }}
+            sudo mv app/jam-app repo/templates/${{ inputs.name }}/${{ inputs.type }}
+          else
+            sudo rm -rf repo/templates/${{ inputs.name }}
+            sudo mv app/jam-app repo/templates/${{ inputs.name }}
+          fi
           sudo rm -rf app
 
       - name: Commit changes
@@ -115,8 +119,13 @@ jobs:
         continue-on-error: true
         working-directory: ./repo
         run: |
-          git add ./templates/${{ inputs.name }}/${{ inputs.type }}
-          git commit -m 'Update templates/${{ inputs.name }}/${{ inputs.type }}'
+          if [ "${{ inputs.type }}" = true ]; then
+            git add ./templates/${{ inputs.name }}/${{ inputs.type }}
+            git commit -m 'Update templates/${{ inputs.name }}/${{ inputs.type }}'
+          else
+            git add ./templates/${{ inputs.name }}
+            git commit -m 'Update templates/${{ inputs.name }}'
+          fi
           git push origin template/${{ inputs.name }}
 
       - name: PR message
@@ -135,7 +144,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh label create 'template/${{ inputs.name }}' -f -d 'Updates to ${{ inputs.name }} templates' -c ${{ inputs.color }}
+          gh label create 'template/${{ inputs.name }}' -f -d 'Update ${{ inputs.name }} templates' -c ${{ inputs.color }}
           gh pr create -B ${{ github.event.repository.default_branch }} -H template/${{ inputs.name }} -l template/${{ inputs.name }} -t 'Updating ${{ inputs.name }} template(s)' -b ':robot: *An automated PR*
 
           Generated template(s) with `${{ steps.pr_message.outputs.message }}` in `./templates/${{ inputs.name }}`'
