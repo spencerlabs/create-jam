@@ -1,38 +1,19 @@
-# blog
+# jam-app
 
 ## CLI Commands
 
-``` bash
-# install dependencies
-npm install
+- `npm install`: Installs dependencies
 
-# serve with hot reload at localhost:8080
-npm run dev
+- `npm run dev`: Run a development, HMR server
 
-# build for production with minification
-npm run build
+- `npm run serve`: Run a production-like server
 
-# run tests with jest and preact-render-spy
-npm run test
-```
+- `npm run build`: Production-ready build
+
+- `npm run lint`: Pass TypeScript files using ESLint
+
+- `npm run test`: Run Jest and Enzyme with
+  [`enzyme-adapter-preact-pure`](https://github.com/preactjs/enzyme-adapter-preact-pure) for
+  your tests
 
 For detailed explanation on how things work, checkout the [CLI Readme](https://github.com/developit/preact-cli/blob/master/README.md).
-
-### How to setup Netlify CMS
-
-- Deploy on netlify using the CLI or the Netlify bot for [github](https://app.netlify.com/start).
-
-- Enable Git gateway https://docs.netlify.com/visitor-access/git-gateway/.
-
-- Enable Identity for your app https://docs.netlify.com/visitor-access/identity/.
-
-- For most Blogs, change (Identity > Settings > Registration preferences) to invite only.
-
-- Invite yourself to the Identity tab in Netlify console.
-
-- Accept the invite from you mail.
-
-- Done 👍🏻.
-
-*Note:* Go to `https://<your-domain>/admin` in order to access Netlify CMS.
-
