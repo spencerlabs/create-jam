@@ -1,0 +1,32 @@
+name: Create Preact App
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 8 * * *'
+
+jobs:
+  create_apps:
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+      matrix:
+        app:
+          - default
+          - simple
+          - netlify
+          - typescript
+    uses: ./.github/workflows/create-app.yml
+    with:
+      name: preact
+      package: preact-cli
+      command: "preact create ${{ matrix.app }}"
+      type: ${{ matrix.app }}
+      flags: "--name jam-app --install false"
+      color: 673ab8
+      create_dir: false
+
+  sort_common_files:
+    needs: create_apps
+    uses: ./.github/workflows/sort-common-files.yml
+    with:
+      app: preact
