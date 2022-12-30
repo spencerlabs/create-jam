@@ -6,9 +6,13 @@ on:
         required: true
         description: "Name of the application (ex. 'react')"
         type: string
+      package:
+        default: ''
+        description: "Package to install for CLI (ex. 'gatsby-cli')"
+        type: string
       command:
         required: true
-        description: "Base create command (ex. 'react-app')"
+        description: "Base create command (ex. 'react-app' or 'gatsby init')"
         type: string
       type:
         required: true
@@ -22,6 +26,10 @@ on:
         default: ''
         description: "Color to apply to GitHub label (ex. 'E99695')"
         type: string
+      create_dir:
+        default: true
+        description: "Should the 'jam-app' dir be created first in the CLI implementation"
+        type: boolean
 
 jobs:
   create_app:
@@ -36,14 +44,28 @@ jobs:
           fetch-depth: '0'
           path: repo
 
+      - name: Setup node 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
       - name: Create app folder
         run: |
           sudo mkdir app
 
-      - name: Run create command
+      - if: inputs.package == ''
+        name: Run create command
         working-directory: ./app
         run: |
-          sudo yarn create ${{ inputs.command }} jam-app ${{ inputs.flags }}
+          sudo npx create-${{ inputs.command }} jam-app ${{ inputs.flags }}
+
+      - if: inputs.package
+        name: Create with CLI
+        working-directory: ./app
+        run: |
+          sudo npm install -g ${{ inputs.package }}
+          [ "${{ inputs.create_dir }}" = true ] && sudo mkdir jam-app
+          sudo ${{ inputs.command }} jam-app ${{ inputs.flags }}
 
         # delete extra files and add empty lock file to prevent workspace install
       - name: Clean up app
@@ -97,6 +119,15 @@ jobs:
           git commit -m 'Update templates/${{ inputs.name }}/${{ inputs.type }}'
           git push origin template/${{ inputs.name }}
 
+      - name: PR message
+        id: pr_message
+        run: |
+          if [ "${{ inputs.package }}" == "" ]; then
+            echo "message=yarn create ${{ inputs.command }}" >> $GITHUB_OUTPUT
+          else
+            echo "message=${{ inputs.command }}" >> $GITHUB_OUTPUT
+          fi
+
       - name: Create PR
         working-directory: ./repo
         env:
@@ -105,4 +136,4 @@ jobs:
           gh label create 'template/${{ inputs.name }}' -f -d 'Updates to ${{ inputs.name }} templates' -c ${{ inputs.color }}
           gh pr create -B ${{ github.event.repository.default_branch }} -H template/${{ inputs.name }} -l template/${{ inputs.name }} -t 'Updating ${{ inputs.name }} template(s)' -b ':robot: *An automated PR*
 
-          Generated template(s) with `yarn create ${{ inputs.command }}` in `./templates/${{ inputs.name }}`'
+          Generated template(s) with `${{ steps.pr_message.outputs.message }}` in `./templates/${{ inputs.name }}`'

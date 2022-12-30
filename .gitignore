@@ -9,3 +9,6 @@ example-app
 !.yarn/sdks
 !.yarn/versions
 yarn-error.log
+
+!templates/*
+*.tgz

@@ -52,8 +52,7 @@ yarn create jam <project-name> --app react
 yarn create jam <project-name> -a react
 ```
 
-If the app has a `javascript` template version it will automatically create that template.
-If there are multiple JavaScript templates, it will limit the template choices to just JavaScript options.
+This will skip directly to the template selection question.
 
 ### `--typescript | -ts`
 
@@ -62,7 +61,7 @@ To default to the TypeScript version, use the `--typescript` flag:
 ```bash
 yarn create jam <project-name> --app react --typescript
 # or
-yarn create jam <project-name> -a react -ts
+yarn create jam <project-name> -a react -t
 ```
 
 If the app has a `typescript` template version it will automatically create that template.
@@ -73,7 +72,7 @@ You can also provide the `--typescript` flag without the app type to utilize the
 ```bash
 yarn create jam <project-name> --typescript
 # or
-yarn create jam <project-name> -ts
+yarn create jam <project-name> -t
 ```
 
 ### `--overwrite | -o`

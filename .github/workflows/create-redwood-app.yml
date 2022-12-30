@@ -20,3 +20,9 @@ jobs:
       type: ${{ fromJson(matrix.app).type }}
       flags: "--git false ${{ fromJson(matrix.app).flags }}"
       color: "bf4722"
+
+  sort_common_files:
+    needs: create_apps
+    uses: ./.github/workflows/sort-common-files.yml
+    with:
+      app: redwood
