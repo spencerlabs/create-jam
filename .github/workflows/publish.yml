@@ -15,6 +15,11 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
 
+      - if: github.event.release.prerelease
+        name: Prerelease
+        run: |
+          yarn version --new-version ${${{ github.event.release.tag_name }}:1}
+
       - run: yarn
       - run: yarn build
       - run: npm publish --access public
