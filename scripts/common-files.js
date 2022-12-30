@@ -9,6 +9,13 @@ if (!template) throw new Error('No template provided')
 const dir = path.join(__dirname, '../templates', template)
 const commonFolder = path.join(dir, '_common')
 
+const singleTemplate = fs.existsSync(path.resolve(dir, 'package.json'))
+
+if (singleTemplate) {
+  console.log('Only one template found')
+  process.exit(0)
+}
+
 // App templates
 const subTemplates = fs
   .readdirSync(dir, { withFileTypes: true })
