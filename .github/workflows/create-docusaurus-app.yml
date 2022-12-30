@@ -11,15 +11,14 @@ jobs:
       fail-fast: false
       matrix:
         app:
-          - "{ type: 'classic', append: '-ts', flags: '--typescript' }"
-          - "{ type: 'classic', append: '-js', flags: '' }"
-          - "{ type: 'facebook', append: '-js', flags: '' }"
+          - "{ type: 'typescript', flags: '--typescript' }"
+          - "{ type: 'javascript', flags: '' }"
     uses: ./.github/workflows/create-app.yml
     with:
       name: docusaurus
       command: docusaurus
-      type: "${{ fromJson(matrix.app).type }}${{ fromJson(matrix.app).append }}"
-      flags: "${{ fromJson(matrix.app).type }} -s ${{ fromJson(matrix.app).flags }}"
+      type: ${{ fromJson(matrix.app).type }}
+      flags: "classic -s ${{ fromJson(matrix.app).flags }}"
       color: 3ECC5F
 
   sort_common_files:

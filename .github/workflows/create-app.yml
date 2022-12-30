@@ -129,6 +129,8 @@ jobs:
           fi
 
       - name: Create PR
+        # an error here most likely means PR already exists, so we let it pass
+        continue-on-error: true
         working-directory: ./repo
         env:
           GH_TOKEN: ${{ github.token }}

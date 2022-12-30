@@ -24,7 +24,6 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: '0'
-          path: repo
 
       - name: Setup node 18
         uses: actions/setup-node@v3
@@ -33,6 +32,7 @@ jobs:
 
       - name: Sort common files
         run: |
+          yarn
           yarn cfs ${{ inputs.app }}
 
         # create or switch to template branch
@@ -68,6 +68,8 @@ jobs:
           git push origin template/${{ inputs.app }}
 
       - name: Create PR
+        # an error here most likely means PR already exists, so we let it pass
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
