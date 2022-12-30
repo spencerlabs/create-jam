@@ -57,7 +57,7 @@ yarn create jam <project-name> -a react
 
 This will skip directly to the template selection question.
 
-### `--typescript | -ts`
+### `--typescript | -t`
 
 To default to the TypeScript version, use the `--typescript` flag:
 
