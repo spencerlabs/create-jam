@@ -1,0 +1,22 @@
+name: Create Hexo App
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 6 * * *'
+
+jobs:
+  create_apps:
+    uses: ./.github/workflows/create-app.yml
+    with:
+      name: hexo
+      package: hexo-cli
+      command: hexo init
+      type: javascript
+      flags: ""
+      color: 0D83CD
+
+  sort_common_files:
+    needs: create_apps
+    uses: ./.github/workflows/sort-common-files.yml
+    with:
+      app: hexo
