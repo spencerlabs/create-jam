@@ -30,11 +30,6 @@ jobs:
         with:
           node-version: 18
 
-      - name: Sort common files
-        run: |
-          yarn
-          yarn cfs ${{ inputs.app }}
-
         # create or switch to template branch
       - name: Switch to template branch
         run: |
@@ -58,6 +53,11 @@ jobs:
           else
             git pull origin template/${{ inputs.app }}
           fi
+
+      - name: Sort common files
+        run: |
+          yarn
+          yarn cfs ${{ inputs.app }}
 
       - name: Commit changes
         # an error here most likely means no changes, so we let it pass
