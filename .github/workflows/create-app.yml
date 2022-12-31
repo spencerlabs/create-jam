@@ -14,6 +14,10 @@ on:
         required: true
         description: "Base create command (ex. 'react-app' or 'gatsby init')"
         type: string
+      git:
+        default: ''
+        description: "Git clone URL for git repo installs"
+        type: string
       type:
         default: ''
         description: "Add template type for app subdirectory (ex. 'javascript', 'typescript', or 'remix-ts')"
@@ -49,11 +53,16 @@ jobs:
         run: |
           sudo mkdir app
 
-      - if: inputs.package == ''
+      - if: inputs.git == '' && inputs.package == ''
         name: Run create command
         working-directory: ./app
         run: |
           sudo npx create-${{ inputs.command }} jam-app ${{ inputs.flags }}
+
+      - if: inputs.git
+        name: Git clone
+        working-directory: ./app
+        run: git clone ${{ inputs.git }} jam-app
 
       - if: inputs.package
         name: Create with CLI
