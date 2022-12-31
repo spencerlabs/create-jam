@@ -1,4 +1,4 @@
-name: Create PR
+name: Pull Request
 on:
   workflow_call:
     inputs:
