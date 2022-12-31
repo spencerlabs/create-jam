@@ -107,7 +107,7 @@ jobs:
             sudo mv app/jam-app repo/templates/${{ inputs.name }}
           else
             echo "multiple templates"
-            sudo rm -rf repo/templates/${{ inputs.name }}/${{ inputs.type }}
+            sudo rm -rf repo/templates/${{ inputs.name }}/*/
             sudo mkdir -p repo/templates/${{ inputs.name }}
             sudo mv app/jam-app repo/templates/${{ inputs.name }}/${{ inputs.type }}
           fi
