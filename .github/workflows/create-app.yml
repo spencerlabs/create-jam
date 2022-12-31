@@ -6,22 +6,30 @@ on:
         required: true
         description: "Name of the application (ex. 'react')"
         type: string
+      package:
+        default: ''
+        description: "Package to install for CLI (ex. 'gatsby-cli')"
+        type: string
       command:
         required: true
-        description: "Base create command (ex. 'react-app')"
+        description: "Base create command (ex. 'react-app' or 'gatsby init')"
+        type: string
+      git:
+        default: ''
+        description: "Git clone URL for git repo installs"
         type: string
       type:
-        required: true
+        default: ''
         description: "Add template type for app subdirectory (ex. 'javascript', 'typescript', or 'remix-ts')"
         type: string
       flags:
         default: ''
         description: "Any flags to add to create commmand (ex. '--typescript')"
         type: string
-      color:
-        default: ''
-        description: "Color to apply to GitHub label (ex. 'E99695')"
-        type: string
+      create_dir:
+        default: true
+        description: "Should the 'jam-app' dir be created first in the CLI implementation"
+        type: boolean
 
 jobs:
   create_app:
@@ -36,20 +44,39 @@ jobs:
           fetch-depth: '0'
           path: repo
 
+      - name: Setup node 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
       - name: Create app folder
         run: |
           sudo mkdir app
 
-      - name: Run create command
+      - if: inputs.git == '' && inputs.package == ''
+        name: Run create command
         working-directory: ./app
         run: |
-          sudo yarn create ${{ inputs.command }} jam-app ${{ inputs.flags }}
+          sudo npx create-${{ inputs.command }} jam-app ${{ inputs.flags }}
+
+      - if: inputs.git
+        name: Git clone
+        working-directory: ./app
+        run: sudo git clone ${{ inputs.git }} jam-app
+
+      - if: inputs.package
+        name: Create with CLI
+        working-directory: ./app
+        run: |
+          sudo npm install -g ${{ inputs.package }}
+          [ "${{ inputs.create_dir }}" = true ] && sudo mkdir jam-app
+          sudo ${{ inputs.command }} jam-app ${{ inputs.flags }}
 
         # delete extra files and add empty lock file to prevent workspace install
       - name: Clean up app
         working-directory: ./app/jam-app
         run: |
-          sudo rm -f yarn.lock package-lock.json
+          sudo rm -f yarn.lock package-lock.json LICENSE .github/FUNDING.yml
           sudo rm -rf .git node_modules
           sudo touch yarn.lock
           [ -f ".gitignore" ] && sudo mv .gitignore gitignore.template
@@ -83,9 +110,16 @@ jobs:
 
       - name: Move folders
         run: |
-          sudo rm -rf repo/templates/${{ inputs.name }}/${{ inputs.type }}
-          sudo mkdir -p repo/templates/${{ inputs.name }}
-          sudo mv app/jam-app repo/templates/${{ inputs.name }}/${{ inputs.type }}
+          if [ -z "${{ inputs.type }}" ]; then
+            echo "single template"
+            sudo rm -rf repo/templates/${{ inputs.name }}
+            sudo mv app/jam-app repo/templates/${{ inputs.name }}
+          else
+            echo "multiple templates"
+            sudo rm -rf repo/templates/${{ inputs.name }}/${{ inputs.type }}
+            sudo mkdir -p repo/templates/${{ inputs.name }}
+            sudo mv app/jam-app repo/templates/${{ inputs.name }}/${{ inputs.type }}
+          fi
           sudo rm -rf app
 
       - name: Commit changes
@@ -93,16 +127,11 @@ jobs:
         continue-on-error: true
         working-directory: ./repo
         run: |
-          git add ./templates/${{ inputs.name }}/${{ inputs.type }}
-          git commit -m 'Update templates/${{ inputs.name }}/${{ inputs.type }}'
+          if [ -z "${{ inputs.type }}" ]; then
+            git add ./templates/${{ inputs.name }}
+            git commit -m 'Update templates/${{ inputs.name }}'
+          else
+            git add ./templates/${{ inputs.name }}/${{ inputs.type }}
+            git commit -m 'Update templates/${{ inputs.name }}/${{ inputs.type }}'
+          fi
           git push origin template/${{ inputs.name }}
-
-      - name: Create PR
-        working-directory: ./repo
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh label create 'template/${{ inputs.name }}' -f -d 'Updates to ${{ inputs.name }} templates' -c ${{ inputs.color }}
-          gh pr create -B ${{ github.event.repository.default_branch }} -H template/${{ inputs.name }} -l template/${{ inputs.name }} -t 'Updating ${{ inputs.name }} template(s)' -b ':robot: *An automated PR*
-
-          Generated template(s) with `yarn create ${{ inputs.command }}` in `./templates/${{ inputs.name }}`'

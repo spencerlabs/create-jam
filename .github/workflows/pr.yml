@@ -1,0 +1,90 @@
+name: Pull Request
+on:
+  workflow_call:
+    inputs:
+      name:
+        required: true
+        description: "Name of the application (ex. 'react')"
+        type: string
+      command:
+        required: true
+        description: "Command used to create app"
+        type: string
+      cli:
+        default: false
+        description: "Is this a CLI install?"
+        type: boolean
+      color:
+        required: true
+        default: ''
+        description: "Color to apply to GitHub label (ex. 'E99695')"
+        type: string
+  workflow_dispatch:
+    inputs:
+      name:
+        required: true
+        description: "Name of the application (ex. 'react')"
+        type: string
+      command:
+        required: true
+        description: "Command used to create app"
+        type: string
+      cli:
+        default: false
+        description: "Is this a CLI install?"
+        type: boolean
+      color:
+        required: true
+        default: ''
+        description: "Color to apply to GitHub label (ex. 'E99695')"
+        type: string
+
+jobs:
+  create_pr:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout current repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+
+      - name: PR message
+        id: pr_message
+        run: |
+          if [ "${{ inputs.package }}" == "" ]; then
+            echo "message=yarn create ${{ inputs.command }}" >> $GITHUB_OUTPUT
+          else
+            echo "message=${{ inputs.command }}" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Create label
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create 'template/${{ inputs.name }}' -f -d 'Updates to ${{ inputs.name }} template(s)' -c ${{ inputs.color }}
+          
+      - name: Create PR
+        id: pr
+        uses: repo-sync/pull-request@v2
+        # failure handled in next step, so we let it pass
+        continue-on-error: true
+        with:
+          source_branch: "template/${{ inputs.name }}"
+          destination_branch: ${{ github.event.repository.default_branch }}
+          pr_title: "Update ${{ inputs.name }} templates"
+          pr_label: "template/${{ inputs.name }}"
+          pr_body: |
+            :robot: *An automated PR*
+            
+            Generated template(s) with `${{ steps.pr_message.outputs.message }}` in `./templates/${{ inputs.name }}`'
+            
+      
+      - if: steps.pr.outcome == 'failure'
+        name: Delete branch
+        run: |
+          git config user.name "${{ inputs.name }}-app bot"
+          git config user.email "<>"
+          git push origin -d template/${{ inputs.name }}

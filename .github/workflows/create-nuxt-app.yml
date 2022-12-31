@@ -1,0 +1,28 @@
+name: Create Nuxt App
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 5 * * *'
+
+jobs:
+  create_apps:
+    uses: ./.github/workflows/create-app.yml
+    with:
+      name: nuxt
+      package: nuxi
+      command: nuxi init
+
+  sort_common_files:
+    needs: create_apps
+    uses: ./.github/workflows/sort-common-files.yml
+    with:
+      app: nuxt
+
+  pr:
+    needs: sort_common_files
+    uses: ./.github/workflows/pr.yml
+    with:
+      name: nuxt
+      command: nuxi init
+      cli: true
+      color: 00dc82

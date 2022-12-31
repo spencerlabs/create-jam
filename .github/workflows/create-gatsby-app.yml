@@ -1,0 +1,35 @@
+name: Create Gatsby App
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 5 * * *'
+
+jobs:
+  create_apps:
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+      matrix:
+        app:
+          - "{ type: 'typescript', git: 'https://github.com/gatsbyjs/gatsby-starter-minimal-ts.git' }"
+          - "{ type: 'javascript', git: 'https://github.com/gatsbyjs/gatsby-starter-minimal.git' }"
+    uses: ./.github/workflows/create-app.yml
+    with:
+      name: gatsby
+      command: git clone
+      type: ${{ fromJson(matrix.app).type }}
+      git: "${{ fromJson(matrix.app).git }}"
+
+  sort_common_files:
+    needs: create_apps
+    uses: ./.github/workflows/sort-common-files.yml
+    with:
+      app: gatsby
+
+  pr:
+    needs: sort_common_files
+    uses: ./.github/workflows/pr.yml
+    with:
+      name: gatsby
+      command: git clone
+      color: "663399"

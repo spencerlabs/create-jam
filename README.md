@@ -4,13 +4,20 @@ Create a [Jamstack](https://jamstack.org) app with many of the most popular fram
 
 ## Available apps
 
-| Framework                                                | Type         | Templates                  | Underlying Configs   |
-| -------------------------------------------------------- | ------------ | -------------------------- | -------------------- |
-| [Docusaurus](https://docusaurus.io/)                     | `docusaurus` | `typescript`, `javascript` | `--template classic` |
-| [Next.js](https://nextjs.org)                            | `next`       | `typescript`, `javascript` | `--eslint`           |
-| React ([create-react-app](https://create-react-app.dev)) | `react`      | `typescript`, `javascript` |                      |
-| [Redwood](https://redwoodjs.com)                         | `redwood`    | `typescript`, `javascript` |                      |
-| [Remix](https://remix.run/)                              | `remix`      | `typescript`, `javascript` | `--template remix`   |
+> Apps with only one configuration have nothing in the 'Templates' columns
+
+| Framework                                                | Type         | Templates                                                                                                                                                                                                                                                                                     | Underlying Configs |
+| -------------------------------------------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| [Docusaurus](https://docusaurus.io/)                     | `docusaurus` | <ul><li>`typescript`</li><li>`javascript`</li></ul>                                                                                                                                                                                                                                           |                    |
+| [Eleventy](https://www.11ty.dev)                         | `eleventy`   |                                                                                                                                                                                                                                                                                               |                    |
+| [Gatsby](https://www.gatsbyjs.com)                       | `gatsby`     | <ul><li>`typescript`</li><li>`javascript`</li></ul>                                                                                                                                                                                                                                           |                    |
+| [Hexo](https://hexo.io/)                                 | `hexo`       |                                                                                                                                                                                                                                                                                               |                    |
+| [Next.js](https://nextjs.org)                            | `next`       | <ul><li>`typescript`</li><li>`javascript`</li></ul>                                                                                                                                                                                                                                           | `--eslint`         |
+| [Nuxt](https://nuxtjs.org/)                              | `nuxt`       |                                                                                                                                                                                                                                                                                               |                    |
+| [Preact](https://preactjs.com/)                          | `preact`     | <ul><li>`default`</li><li>`simple`</li><li>`netlify`</li><li>`typescript`</li></ul>                                                                                                                                                                                                           |                    |
+| React ([create-react-app](https://create-react-app.dev)) | `react`      | <ul><li>`typescript`</li><li>`javascript`</li></ul>                                                                                                                                                                                                                                           |                    |
+| [Redwood](https://redwoodjs.com)                         | `redwood`    | <ul><li>`typescript`</li><li>`javascript`</li></ul>                                                                                                                                                                                                                                           |                    |
+| [Remix](https://remix.run/)                              | `remix`      | <ul><li>`arc` (js and ts)</li><li>`cloudflare-pages` (js and ts)</li><li>`cloudflare-workers` (js and ts)</li><li>`deno` (js and ts)</li><li>`express` (js and ts)</li><li>`fly` (js and ts)</li><li>`netlify` (js and ts)</li><li>`remix` (js and ts)</li><li>`vercel` (js and ts)</li></ul> |                    |
 
 ## Using `create-jam`
 
@@ -52,17 +59,16 @@ yarn create jam <project-name> --app react
 yarn create jam <project-name> -a react
 ```
 
-If the app has a `javascript` template version it will automatically create that template.
-If there are multiple JavaScript templates, it will limit the template choices to just JavaScript options.
+This will skip directly to the template selection question.
 
-### `--typescript | -ts`
+### `--typescript | -t`
 
 To default to the TypeScript version, use the `--typescript` flag:
 
 ```bash
 yarn create jam <project-name> --app react --typescript
 # or
-yarn create jam <project-name> -a react -ts
+yarn create jam <project-name> -a react -t
 ```
 
 If the app has a `typescript` template version it will automatically create that template.
@@ -73,7 +79,7 @@ You can also provide the `--typescript` flag without the app type to utilize the
 ```bash
 yarn create jam <project-name> --typescript
 # or
-yarn create jam <project-name> -ts
+yarn create jam <project-name> -t
 ```
 
 ### `--overwrite | -o`

@@ -2,7 +2,7 @@ name: Create Next.js App
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 3 * * *'
+    - cron: '0 5 * * *'
 
 jobs:
   create_apps:
@@ -19,4 +19,17 @@ jobs:
       command: next-app
       type: ${{ fromJson(matrix.app).type }}
       flags: "--eslint ${{ fromJson(matrix.app).flags }}"
+
+  sort_common_files:
+    needs: create_apps
+    uses: ./.github/workflows/sort-common-files.yml
+    with:
+      app: next
+
+  pr:
+    needs: sort_common_files
+    uses: ./.github/workflows/pr.yml
+    with:
+      name: next
+      command: next-app
       color: "000000"
