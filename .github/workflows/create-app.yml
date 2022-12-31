@@ -62,7 +62,7 @@ jobs:
       - if: inputs.git
         name: Git clone
         working-directory: ./app
-        run: git clone ${{ inputs.git }} jam-app
+        run: sudo git clone ${{ inputs.git }} jam-app
 
       - if: inputs.package
         name: Create with CLI
