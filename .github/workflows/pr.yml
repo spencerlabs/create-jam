@@ -10,7 +10,7 @@ on:
         required: true
         description: "Command used to create app"
         type: string
-      package:
+      cli:
         default: false
         description: "Is this a CLI install?"
         type: boolean
