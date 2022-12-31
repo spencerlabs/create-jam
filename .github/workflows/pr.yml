@@ -61,6 +61,8 @@ jobs:
           fi
           
       - name: Create label
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh label create 'template/${{ inputs.name }}' -f -d 'Updates to ${{ inputs.name }} template(s)' -c ${{ inputs.color }}
           
