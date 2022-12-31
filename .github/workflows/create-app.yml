@@ -22,10 +22,6 @@ on:
         default: ''
         description: "Any flags to add to create commmand (ex. '--typescript')"
         type: string
-      color:
-        default: ''
-        description: "Color to apply to GitHub label (ex. 'E99695')"
-        type: string
       create_dir:
         default: true
         description: "Should the 'jam-app' dir be created first in the CLI implementation"
@@ -128,24 +124,3 @@ jobs:
             git commit -m 'Update templates/${{ inputs.name }}/${{ inputs.type }}'
           fi
           git push origin template/${{ inputs.name }}
-
-      - name: PR message
-        id: pr_message
-        run: |
-          if [ "${{ inputs.package }}" == "" ]; then
-            echo "message=yarn create ${{ inputs.command }}" >> $GITHUB_OUTPUT
-          else
-            echo "message=${{ inputs.command }}" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Create PR
-        # an error here most likely means PR already exists, so we let it pass
-        continue-on-error: true
-        working-directory: ./repo
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh label create 'template/${{ inputs.name }}' -f -d 'Update ${{ inputs.name }} templates' -c ${{ inputs.color }}
-          gh pr create -B ${{ github.event.repository.default_branch }} -H template/${{ inputs.name }} -l template/${{ inputs.name }} -t 'Updating ${{ inputs.name }} template(s)' -b ':robot: *An automated PR*
-
-          Generated template(s) with `${{ steps.pr_message.outputs.message }}` in `./templates/${{ inputs.name }}`'
