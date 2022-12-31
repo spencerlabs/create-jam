@@ -63,7 +63,7 @@ import { name, version } from '../package.json'
       type: 'boolean',
     })
     .option('typescript', {
-      alias: 'ts',
+      alias: 't',
       default: false,
       describe: 'Prefer TypeScript template if available',
       type: 'boolean',
@@ -108,7 +108,7 @@ import { name, version } from '../package.json'
   if (!shell.which('yarn')) config.pkgManager = 'npm'
 
   // Prompt for app value if none provided
-  if (!app) {
+  if (!config.app) {
     const { app: chosenApp } = await inquirer.prompt([
       {
         type: 'list',
@@ -123,43 +123,49 @@ import { name, version } from '../package.json'
 
   const frameworkDir = path.resolve(__dirname, `../templates/${config.app}`)
 
-  const templates = fs
-    .readdirSync(frameworkDir, {
-      withFileTypes: true,
-    })
-    .filter((f) => f.isDirectory())
-    .map((f) => f.name)
-    .sort()
+  const singleTemplate = fs.existsSync(
+    path.resolve(frameworkDir, 'package.json')
+  )
 
-  let availableTemplates = templates
+  const templates = !singleTemplate
+    ? fs
+        .readdirSync(frameworkDir, {
+          withFileTypes: true,
+        })
+        .filter((f) => f.isDirectory() && f.name !== '_common')
+        .map((f) => f.name)
+        .sort()
+    : []
 
-  // Select TS template if -ts flag provided and `typescript` template exists
-  if (typescript && templates.includes('typescript')) {
-    config.template = 'typescript'
+  if (templates.length > 0) {
+    let availableTemplates = templates
 
-    // Filter TS templates if -ts flag provided and no `typescript` template exists
-  } else if (typescript && !templates.includes('typescript')) {
-    const filteredTemplates = templates.filter((t) => t.endsWith('-ts'))
+    // Select TS template if -ts flag provided and `typescript` template exists
+    if (typescript && availableTemplates.includes('typescript')) {
+      config.template = 'typescript'
 
-    if (filteredTemplates.length > 0) availableTemplates = filteredTemplates
+      // Filter TS templates if -ts flag provided and no `typescript` template exists
+    } else if (typescript && !availableTemplates.includes('typescript')) {
+      const filteredTemplates = templates.filter((t) => t.endsWith('-ts'))
 
-    // Select JS template if `app` provided and `javascript` template exists
-  } else if (app && templates.includes('javascript')) {
-    config.template = 'javascript'
-  }
+      if (filteredTemplates.length > 0) availableTemplates = filteredTemplates
+    }
 
-  // Prompt for template value based on app if no template selected from previous actions
-  if (!config.template) {
-    const { template } = await inquirer.prompt([
-      {
-        type: 'list',
-        name: 'template',
-        message: 'Select a template',
-        choices: availableTemplates,
-      },
-    ])
+    if (availableTemplates.length === 1) config.template = availableTemplates[0]
 
-    config.template = template
+    // Prompt for template value based on app if no template selected from previous actions
+    if (!config.template) {
+      const { template } = await inquirer.prompt([
+        {
+          type: 'list',
+          name: 'template',
+          message: 'Select a template',
+          choices: availableTemplates,
+        },
+      ])
+
+      config.template = template
+    }
   }
 
   const createProjectTasks = ({
@@ -189,10 +195,11 @@ import { name, version } from '../package.json'
             fs.ensureDirSync(path.dirname(newAppDir))
           }
 
-          fs.copySync(
-            `${templatesDir}/${config.app}/${config.template}`,
-            newAppDir,
-            {
+          if (
+            !singleTemplate &&
+            fs.existsSync(`${templatesDir}/${config.app}/_common`)
+          ) {
+            fs.copySync(`${templatesDir}/${config.app}/_common`, newAppDir, {
               overwrite,
               filter: (src) => {
                 if (src === 'yarn.lock') return false
@@ -200,8 +207,22 @@ import { name, version } from '../package.json'
 
                 return true
               },
-            }
-          )
+            })
+          }
+
+          const copyPath = `${templatesDir}/${config.app}${
+            !singleTemplate ? `/${config.template}` : ''
+          }`
+
+          fs.copySync(copyPath, newAppDir, {
+            overwrite,
+            filter: (src) => {
+              if (src === 'yarn.lock') return false
+              if (src === 'package-lock.json') return false
+
+              return true
+            },
+          })
 
           const gitignoreFile = path.join(newAppDir, 'gitignore.template')
 

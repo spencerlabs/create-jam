@@ -353,11 +353,11 @@ __metadata:
   linkType: hard
 
 "@types/yargs@npm:^17.0.13":
-  version: 17.0.17
-  resolution: "@types/yargs@npm:17.0.17"
+  version: 17.0.18
+  resolution: "@types/yargs@npm:17.0.18"
   dependencies:
     "@types/yargs-parser": "*"
-  checksum: 4a95d254292c7a688685afed4d75f6e99826ccb08a669e8fc9867b2d97342a696fc9bdb874b8631311a0d8c42d0b12ed7f5bd994aa75cd916ec88183985c2092
+  checksum: bbc5cb5ce68c547f1c5349d1352f6dbfef3a963e223b82f17d53771a689f879ee427042be57ec3aa35a10af643bd4e603aa6e35d1bd8b5bcf80396226c9c9c7b
   languageName: node
   linkType: hard
 
@@ -954,7 +954,6 @@ __metadata:
     inquirer: ^8.2.3
     listr: ^0.14.3
     shelljs: ^0.8.5
-    slugify: ^1.6.5
     ts-node: ^10.9.1
     typescript: ^4.9.4
     yargs: ^17.6.0
@@ -3336,13 +3335,6 @@ __metadata:
   version: 0.0.4
   resolution: "slice-ansi@npm:0.0.4"
   checksum: 997d4cc73e34aa8c0f60bdb71701b16c062cc4acd7a95e3b10e8c05d790eb5e735d9b470270dc6f443b1ba21492db7ceb849d5c93011d1256061bf7ed7216c7a
-  languageName: node
-  linkType: hard
-
-"slugify@npm:^1.6.5":
-  version: 1.6.5
-  resolution: "slugify@npm:1.6.5"
-  checksum: 264059d9ea7aa95e472e66d19a1042ea54c75d3f60096c2cc57af4d66c6fb6ac1d8b4672326f276f52574fac489f59cb08848bfb97e44291c7e45211acb2b185
   languageName: node
   linkType: hard
 
