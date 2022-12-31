@@ -72,7 +72,7 @@ jobs:
         # failure handled in next step, so we let it pass
         continue-on-error: true
         with:
-          source_branch: "templates/${{ inputs.name }}"
+          source_branch: "template/${{ inputs.name }}"
           destination_branch: ${{ github.event.repository.default_branch }}
           pr_title: "Update ${{ inputs.name }} templates"
           pr_label: "template/${{ inputs.name }}"
