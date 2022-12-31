@@ -1,0 +1,42 @@
+name: Create Vite App
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 5 * * *'
+
+jobs:
+  create_apps:
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+      matrix:
+        app:
+          - '-ts'
+          - ''
+        template:
+          - vanilla
+          - vue
+          - react
+          - preact
+          - lit
+          - svelte
+    uses: ./.github/workflows/create-app.yml
+    with:
+      name: vite
+      command: vite
+      type: "${{ matrix.template }}${{ matrix.app }}"
+      flags: "--template ${{ matrix.template }}${{ matrix.app }}"
+
+  sort_common_files:
+    needs: create_apps
+    uses: ./.github/workflows/sort-common-files.yml
+    with:
+      app: vite
+
+  pr:
+    needs: sort_common_files
+    uses: ./.github/workflows/pr.yml
+    with:
+      name: vite
+      command: vite
+      color: 646cff
