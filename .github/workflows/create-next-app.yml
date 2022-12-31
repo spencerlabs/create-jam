@@ -2,7 +2,7 @@ name: Create Next.js App
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 3 * * *'
+    - cron: '0 5 * * *'
 
 jobs:
   create_apps:
