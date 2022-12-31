@@ -19,10 +19,17 @@ jobs:
       command: react-app
       type: ${{ fromJson(matrix.app).type }}
       flags: "${{ fromJson(matrix.app).flags }}"
-      color: 61dafb
 
   sort_common_files:
     needs: create_apps
     uses: ./.github/workflows/sort-common-files.yml
     with:
       app: react
+
+  pr:
+    needs: sort_common_files
+    uses: ./.github/workflows/pr.yml
+    with:
+      name: react
+      command: react-app
+      color: 61dafb

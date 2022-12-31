@@ -12,11 +12,18 @@ jobs:
       package: hexo-cli
       command: hexo init
       type: javascript
-      flags: ""
-      color: 0D83CD
 
   sort_common_files:
     needs: create_apps
     uses: ./.github/workflows/sort-common-files.yml
     with:
       app: hexo
+
+  pr:
+    needs: sort_common_files
+    uses: ./.github/workflows/pr.yml
+    with:
+      name: hexo
+      command: hexo init
+      cli: true
+      color: 0D83CD

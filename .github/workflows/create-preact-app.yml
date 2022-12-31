@@ -22,7 +22,6 @@ jobs:
       command: "preact create ${{ matrix.app }}"
       type: ${{ matrix.app }}
       flags: "--name jam-app --install false"
-      color: 673ab8
       create_dir: false
 
   sort_common_files:
@@ -30,3 +29,12 @@ jobs:
     uses: ./.github/workflows/sort-common-files.yml
     with:
       app: preact
+
+  pr:
+    needs: sort_common_files
+    uses: ./.github/workflows/pr.yml
+    with:
+      name: preact
+      command: preact create
+      cli: true
+      color: 673ab8

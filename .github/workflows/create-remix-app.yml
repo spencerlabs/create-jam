@@ -29,10 +29,17 @@ jobs:
       command: remix
       type: "${{ matrix.template }}-${{ fromJson(matrix.app).type }}"
       flags: "--template ${{ matrix.template }} --no-install ${{ fromJson(matrix.app).flags }}"
-      color: 3992ff
 
   sort_common_files:
     needs: create_apps
     uses: ./.github/workflows/sort-common-files.yml
     with:
       app: remix
+
+  pr:
+    needs: sort_common_files
+    uses: ./.github/workflows/pr.yml
+    with:
+      name: remix
+      command: remix
+      color: 3992ff
