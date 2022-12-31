@@ -11,8 +11,6 @@ jobs:
       name: nuxt
       package: nuxi
       command: nuxi init
-      type: javascript
-      flags: ""
 
   sort_common_files:
     needs: create_apps
