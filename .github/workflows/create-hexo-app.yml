@@ -11,7 +11,6 @@ jobs:
       name: hexo
       package: hexo-cli
       command: hexo init
-      type: javascript
 
   sort_common_files:
     needs: create_apps
