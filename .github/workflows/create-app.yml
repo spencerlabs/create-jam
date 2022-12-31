@@ -76,7 +76,7 @@ jobs:
       - name: Clean up app
         working-directory: ./app/jam-app
         run: |
-          sudo rm -f yarn.lock package-lock.json
+          sudo rm -f yarn.lock package-lock.json LICENSE .github/funding.yml
           sudo rm -rf .git node_modules
           sudo touch yarn.lock
           [ -f ".gitignore" ] && sudo mv .gitignore gitignore.template
