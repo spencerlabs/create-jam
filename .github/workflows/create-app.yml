@@ -102,9 +102,11 @@ jobs:
       - name: Move folders
         run: |
           if [ -z "${{ inputs.type }}" ]; then
+            echo "single template"
             sudo rm -rf repo/templates/${{ inputs.name }}
             sudo mv app/jam-app repo/templates/${{ inputs.name }}
           else
+            echo "multiple templates"
             sudo rm -rf repo/templates/${{ inputs.name }}/${{ inputs.type }}
             sudo mkdir -p repo/templates/${{ inputs.name }}
             sudo mv app/jam-app repo/templates/${{ inputs.name }}/${{ inputs.type }}
