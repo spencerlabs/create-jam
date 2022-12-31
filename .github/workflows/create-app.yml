@@ -15,6 +15,7 @@ on:
         description: "Base create command (ex. 'react-app' or 'gatsby init')"
         type: string
       type:
+        default: ''
         description: "Add template type for app subdirectory (ex. 'javascript', 'typescript', or 'remix-ts')"
         type: string
       flags:
@@ -104,13 +105,13 @@ jobs:
 
       - name: Move folders
         run: |
-          if [ "${{ inputs.type }}" = true ]; then
+          if [ -z "${{ inputs.type }}" ]; then
+            sudo rm -rf repo/templates/${{ inputs.name }}
+            sudo mv app/jam-app repo/templates/${{ inputs.name }}
+          else
             sudo rm -rf repo/templates/${{ inputs.name }}/${{ inputs.type }}
             sudo mkdir -p repo/templates/${{ inputs.name }}
             sudo mv app/jam-app repo/templates/${{ inputs.name }}/${{ inputs.type }}
-          else
-            sudo rm -rf repo/templates/${{ inputs.name }}
-            sudo mv app/jam-app repo/templates/${{ inputs.name }}
           fi
           sudo rm -rf app
 
@@ -119,12 +120,12 @@ jobs:
         continue-on-error: true
         working-directory: ./repo
         run: |
-          if [ "${{ inputs.type }}" = true ]; then
-            git add ./templates/${{ inputs.name }}/${{ inputs.type }}
-            git commit -m 'Update templates/${{ inputs.name }}/${{ inputs.type }}'
-          else
+          if [ -z "${{ inputs.type }}" ]; then
             git add ./templates/${{ inputs.name }}
             git commit -m 'Update templates/${{ inputs.name }}'
+          else
+            git add ./templates/${{ inputs.name }}/${{ inputs.type }}
+            git commit -m 'Update templates/${{ inputs.name }}/${{ inputs.type }}'
           fi
           git push origin template/${{ inputs.name }}
 
