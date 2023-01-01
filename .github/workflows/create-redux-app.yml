@@ -1,0 +1,35 @@
+name: Create Redux App
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 5 * * *'
+
+jobs:
+  create_apps:
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+      matrix:
+        app:
+          - "{ type: 'typescript', flags: '--template redux-typescript' }"
+          - "{ type: 'javascript', flags: '--template redux' }"
+    uses: ./.github/workflows/create-app.yml
+    with:
+      name: redux
+      command: react-app
+      type: ${{ fromJson(matrix.app).type }}
+      flags: "${{ fromJson(matrix.app).flags }}"
+
+  sort_common_files:
+    needs: create_apps
+    uses: ./.github/workflows/sort-common-files.yml
+    with:
+      app: redux
+
+  pr:
+    needs: sort_common_files
+    uses: ./.github/workflows/pr.yml
+    with:
+      name: redux
+      command: react-app
+      color: 764abc
