@@ -314,7 +314,10 @@ import { name, version } from '../package.json'
   new Listr(
     [
       {
-        title: `Creating ${config.app} app with ${config.template}`,
+        title:
+          `Creating ${config.app} app${
+            config.template ? `with ${config.template} template` : ''
+          }`,
         task: () =>
           new Listr(createProjectTasks({ newAppDir, overwrite: overwrite }), {
             exitOnError: true,
