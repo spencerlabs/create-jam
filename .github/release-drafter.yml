@@ -6,13 +6,15 @@ template: |
 categories:
   - title: ':boom: Breaking Changes'
     label: 'breaking change'
+  - title: ':package: New Template'
+    label: 'new template'
   - title: ':sparkles: Enhancement'
     label: 'enhancement'
   - title: ':bug: Bug Fixes'
     label: 'bug'
   - title: ':book: Documentation'
     label: 'documentation'
-  - title: ':package: Template'
+  - title: ':gear: Template Updates'
     label: 'template/.+'
 
 version-resolver:
@@ -21,6 +23,7 @@ version-resolver:
       - 'breaking change'
   minor:
     labels:
+      - 'new template'
       - 'enhancement'
   patch:
     labels:
