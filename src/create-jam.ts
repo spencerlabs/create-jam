@@ -29,7 +29,7 @@ import frameworks from './templates'
     typescript,
   } = await yargs(hideBin(process.argv))
     .scriptName(name)
-    .usage('Usage: $0 <project-directory> [app] [options]')
+    .usage('Usage: $0 <project-directory> [app]')
     .example('$0 new-app', 'Creates a new Jamstack app')
     .option('bare', {
       alias: 'b',
