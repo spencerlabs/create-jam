@@ -84,6 +84,14 @@ import frameworks from './templates'
     process.exit(1)
   }
 
+  if (!frameworkNames.includes(app)) {
+    console.error(`App option '${app}' does not exist`)
+    console.log()
+    console.log('Available options are:')
+    console.log(frameworkNames.join(', '))
+    process.exit(1)
+  }
+
   const newAppDir = path.resolve(process.cwd(), targetDir)
   const appDirExists = fs.existsSync(newAppDir)
 
