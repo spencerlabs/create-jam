@@ -21,7 +21,6 @@ import frameworks from './templates'
 
   const {
     _: args,
-    app,
     bare,
     'no-init': noInit,
     'no-install': noInstall,
@@ -63,10 +62,10 @@ import frameworks from './templates'
     .parse()
 
   // Get the directory for installation from the args
-  const targetDir = slugify(args[0] as string, {
+  const targetDir = args[0] ? slugify(args[0] as string, {
     lower: true,
     strict: true,
-  })
+  }) : undefined
 
   // Throw an error if there is no target directory specified
   if (!targetDir) {
@@ -84,7 +83,9 @@ import frameworks from './templates'
     process.exit(1)
   }
 
-  if (!frameworkNames.includes(app)) {
+  const app = args[1]
+
+  if (app && !frameworkNames.includes(app)) {
     console.error(`App option '${app}' does not exist`)
     console.log()
     console.log('Available options are:')
