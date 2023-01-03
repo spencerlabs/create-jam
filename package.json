@@ -1,7 +1,33 @@
 {
   "name": "create-jam",
-  "description": "Command Line Interface for quickly spinning up new Jamstack apps",
-  "version": "0.4.0",
+  "description": "Command line interface for quickly spinning up new Jamstack apps",
+  "version": "0.4.1",
+  "homepage": "https://github.com/spencerlabs/create-jam#readme",
+  "bugs": {
+    "url" : "https://github.com/spencerlabs/create-jam/issues"
+  },
+  "keywords": [
+    "jam",
+    "create jam",
+    "jamstack",
+    "create jamstack app",
+    "docusaurus",
+    "eleventy",
+    "gatsby",
+    "hexo",
+    "next js",
+    "nuxt",
+    "preact",
+    "react",
+    "redux",
+    "redwood",
+    "remix",
+    "vite"
+  ],
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/morganmspencer"
+  },
   "main": "./dist/src/create-jam.js",
   "bin": "./dist/src/create-jam.js",
   "license": "MIT",
