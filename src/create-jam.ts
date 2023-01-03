@@ -5,23 +5,19 @@ import path from 'path'
 import chalk from 'chalk'
 import execa from 'execa'
 import fs from 'fs-extra'
+import { downloadTemplate } from 'giget'
 import inquirer from 'inquirer'
 import Listr from 'listr'
 import shell from 'shelljs'
+import slugify from 'slugify'
 import { hideBin } from 'yargs/helpers'
 import yargs from 'yargs/yargs'
 
 import { name, version } from '../package.json'
-;(async () => {
-  const templatesDir = path.resolve(__dirname, '../templates')
 
-  const frameworks = fs
-    .readdirSync(templatesDir, {
-      withFileTypes: true,
-    })
-    .filter((f) => f.isDirectory())
-    .map((f) => f.name)
-    .sort()
+import frameworks from './templates'
+;(async () => {
+  const frameworkNames = Object.keys(frameworks)
 
   const {
     _: args,
@@ -37,7 +33,7 @@ import { name, version } from '../package.json'
     .example('$0 new-app', 'Creates a new Jamstack app')
     .option('app', {
       alias: 'a',
-      choices: frameworks,
+      choices: frameworkNames,
       describe: 'Choose a framework',
     })
     .option('bare', {
@@ -72,7 +68,10 @@ import { name, version } from '../package.json'
     .parse()
 
   // Get the directory for installation from the args
-  const targetDir = String(args).replace(/,/g, '-')
+  const targetDir = slugify(args[0] as string, {
+    lower: true,
+    strict: true,
+  })
 
   // Throw an error if there is no target directory specified
   if (!targetDir) {
@@ -114,30 +113,18 @@ import { name, version } from '../package.json'
         type: 'list',
         name: 'app',
         message: 'Select a framework',
-        choices: frameworks,
+        choices: frameworkNames,
       },
     ])
 
     config.app = chosenApp
   }
 
-  const frameworkDir = path.resolve(__dirname, `../templates/${config.app}`)
+  const templates = frameworks[config.app as string]
 
-  const singleTemplate = fs.existsSync(
-    path.resolve(frameworkDir, 'package.json')
-  )
+  const singleTemplate = templates.length === 0
 
-  const templates = !singleTemplate
-    ? fs
-        .readdirSync(frameworkDir, {
-          withFileTypes: true,
-        })
-        .filter((f) => f.isDirectory() && f.name !== '_common')
-        .map((f) => f.name)
-        .sort()
-    : []
-
-  if (templates.length > 0) {
+  if (!singleTemplate) {
     let availableTemplates = templates
 
     // Select TS template if -ts flag provided and `typescript` template exists
@@ -180,7 +167,7 @@ import { name, version } from '../package.json'
         title: `${
           appDirExists ? 'Using' : 'Creating'
         } directory '${newAppDir}'`,
-        task: () => {
+        task: async () => {
           if (appDirExists && !overwrite) {
             // make sure that the target directory is empty
             if (fs.readdirSync(newAppDir).length > 0) {
@@ -195,34 +182,27 @@ import { name, version } from '../package.json'
             fs.ensureDirSync(path.dirname(newAppDir))
           }
 
-          if (
-            !singleTemplate &&
-            fs.existsSync(`${templatesDir}/${config.app}/_common`)
-          ) {
-            fs.copySync(`${templatesDir}/${config.app}/_common`, newAppDir, {
-              overwrite,
-              filter: (src) => {
-                if (src === 'yarn.lock') return false
-                if (src === 'package-lock.json') return false
-
-                return true
-              },
-            })
-          }
-
-          const copyPath = `${templatesDir}/${config.app}${
+          const copyPath = `templates/${config.app}${
             !singleTemplate ? `/${config.template}` : ''
           }`
 
-          fs.copySync(copyPath, newAppDir, {
-            overwrite,
-            filter: (src) => {
-              if (src === 'yarn.lock') return false
-              if (src === 'package-lock.json') return false
+          await downloadTemplate(
+            `github:spencerlabs/create-jam/${copyPath}#${
+              process.env.NODE_ENV === 'production' ? 'main' : 'next'
+            }`,
+            {
+              dir: newAppDir,
+              force: overwrite,
+              forceClean: overwrite,
+            }
+          )
 
-              return true
-            },
-          })
+          if (fs.readdirSync(newAppDir).length === 0) {
+            throw new Error('No template found!')
+          }
+
+          fs.rmSync(path.join(newAppDir, 'yarn.lock'), { force: true })
+          fs.rmSync(path.join(newAppDir, 'package-lock.json'), { force: true })
 
           const gitignoreFile = path.join(newAppDir, 'gitignore.template')
 
@@ -234,7 +214,12 @@ import { name, version } from '../package.json'
       {
         title: 'Updating package name',
         skip: () => {
-          const fileName = `${newAppDir}/package.json`
+          const fileName = path.join(newAppDir, 'package.json')
+
+          if (!fs.existsSync(fileName)) {
+            return 'No package.json file'
+          }
+
           const file = require(fileName)
 
           if (!file.name) {
@@ -314,10 +299,9 @@ import { name, version } from '../package.json'
   new Listr(
     [
       {
-        title:
-          `Creating ${config.app} app${
-            config.template ? `with ${config.template} template` : ''
-          }`,
+        title: `Creating ${config.app} app${
+          config.template ? ` with ${config.template} template` : ''
+        }`,
         task: () =>
           new Listr(createProjectTasks({ newAppDir, overwrite: overwrite }), {
             exitOnError: true,
