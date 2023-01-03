@@ -25,7 +25,7 @@ jobs:
       create_dir: false
 
   pr:
-    needs: sort_common_files
+    needs: create_apps
     uses: ./.github/workflows/pr.yml
     with:
       name: preact

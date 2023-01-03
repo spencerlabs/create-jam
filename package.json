@@ -10,7 +10,6 @@
   ],
   "scripts": {
     "cmd": "ts-node src/create-jam.ts example-app -bo",
-    "cfs": "node scripts/common-files.js",
     "test": "jest",
     "build": "rm -rf dist && tsc -p ."
   },

@@ -13,7 +13,7 @@ jobs:
       command: nuxi init
 
   pr:
-    needs: sort_common_files
+    needs: create_apps
     uses: ./.github/workflows/pr.yml
     with:
       name: nuxt
