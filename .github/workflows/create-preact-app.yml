@@ -24,12 +24,6 @@ jobs:
       flags: "--name jam-app --install false"
       create_dir: false
 
-  sort_common_files:
-    needs: create_apps
-    uses: ./.github/workflows/sort-common-files.yml
-    with:
-      app: preact
-
   pr:
     needs: sort_common_files
     uses: ./.github/workflows/pr.yml
