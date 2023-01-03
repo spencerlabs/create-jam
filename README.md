@@ -4,7 +4,7 @@ Create a [Jamstack](https://jamstack.org) app with many of the most popular fram
 
 ## Available apps
 
-> Apps with only one configuration have nothing in the 'Templates' columns
+> Apps with only one configuration have nothing in the 'Templates' column
 
 | Framework                                                | Type         | Templates                                                                                                                                                                                                                                                                                     | Underlying Configs |
 | -------------------------------------------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |

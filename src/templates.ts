@@ -8,7 +8,7 @@ const templates: { [key: string]: string[] } = {
   preact: ['default', 'netlify', 'simple', 'typescript'],
   react: ['javascript', 'typescript'],
   redux: ['javascript', 'typescript'],
-  redwoods: ['javascript', 'typescript'],
+  redwood: ['javascript', 'typescript'],
   remix: [
     'arc',
     'arc-ts',
