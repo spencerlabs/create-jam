@@ -29,13 +29,8 @@ import frameworks from './templates'
     typescript,
   } = await yargs(hideBin(process.argv))
     .scriptName(name)
-    .usage('Usage: $0 <project-directory> [options]')
+    .usage('Usage: $0 <project-directory> [app] [options]')
     .example('$0 new-app', 'Creates a new Jamstack app')
-    .option('app', {
-      alias: 'a',
-      choices: frameworkNames,
-      describe: 'Choose a framework',
-    })
     .option('bare', {
       alias: 'b',
       default: false,
