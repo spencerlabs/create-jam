@@ -21,7 +21,7 @@ jobs:
       flags: "${{ fromJson(matrix.app).flags }}"
 
   pr:
-    needs: sort_common_files
+    needs: create_apps
     uses: ./.github/workflows/pr.yml
     with:
       name: redux
