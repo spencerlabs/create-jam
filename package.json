@@ -1,7 +1,7 @@
 {
   "name": "create-jam",
   "description": "Command line interface for quickly spinning up new Jamstack apps",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "homepage": "https://github.com/spencerlabs/create-jam#readme",
   "bugs": {
     "url": "https://github.com/spencerlabs/create-jam/issues"
