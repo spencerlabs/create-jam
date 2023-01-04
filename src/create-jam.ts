@@ -62,10 +62,12 @@ import frameworks from './templates'
     .parse()
 
   // Get the directory for installation from the args
-  const targetDir = args[0] ? slugify(args[0] as string, {
-    lower: true,
-    strict: true,
-  }) : undefined
+  const targetDir = args[0]
+    ? slugify(args[0] as string, {
+        lower: true,
+        strict: true,
+      })
+    : undefined
 
   // Throw an error if there is no target directory specified
   if (!targetDir) {
@@ -83,7 +85,7 @@ import frameworks from './templates'
     process.exit(1)
   }
 
-  const app = args[1]
+  const app = args[1] as string
 
   if (app && !frameworkNames.includes(app)) {
     console.error(`App option '${app}' does not exist`)
@@ -248,7 +250,7 @@ import frameworks from './templates'
             task.skip('Skipping install on request')
           }
 
-          return execa(`${config.pkgManager} install`, {
+          execa(`${config.pkgManager} install`, {
             shell: true,
             cwd: newAppDir,
           })
@@ -266,7 +268,7 @@ import frameworks from './templates'
               {
                 title: "Running 'git init'...",
                 task: () => {
-                  return execa('git init', {
+                  execa('git init', {
                     shell: true,
                     cwd: newAppDir,
                   })
@@ -275,7 +277,7 @@ import frameworks from './templates'
               {
                 title: 'Renaming git default branch...',
                 task: () => {
-                  return execa('git checkout -b main', {
+                  execa('git checkout -b main', {
                     shell: true,
                     cwd: newAppDir,
                   })
@@ -284,7 +286,7 @@ import frameworks from './templates'
               {
                 title: "Running 'git add .'...",
                 task: () => {
-                  return execa('git add .', {
+                  execa('git add .', {
                     shell: true,
                     cwd: newAppDir,
                   })
@@ -293,7 +295,7 @@ import frameworks from './templates'
               {
                 title: "Running 'git commit'...",
                 task: () => {
-                  return execa(
+                  execa(
                     `git commit -m 'Init ${config.app}/${config.template} app with create-jam'`,
                     {
                       shell: true,
