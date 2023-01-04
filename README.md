@@ -51,14 +51,12 @@ npm init jam-app <project-name>
 npx create-jam-app <project-name>
 ```
 
-### `--app | -a`
+### App type
 
-Alternatively, you can provide the app type to the command:
+Optionally, you can provide the app type to the command:
 
 ```bash
-yarn create jam <project-name> --app react
-# or
-yarn create jam <project-name> -a react
+yarn create jam <project-name> react
 ```
 
 This will skip directly to the template selection question.
@@ -68,9 +66,9 @@ This will skip directly to the template selection question.
 To default to the TypeScript version, use the `--typescript` flag:
 
 ```bash
-yarn create jam <project-name> --app react --typescript
+yarn create jam <project-name> react --typescript
 # or
-yarn create jam <project-name> -a react -t
+yarn create jam <project-name> react -t
 ```
 
 If the app has a `typescript` template version it will automatically create that template.
