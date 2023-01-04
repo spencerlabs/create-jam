@@ -21,7 +21,6 @@ import frameworks from './templates'
 
   const {
     _: args,
-    app,
     bare,
     'no-init': noInit,
     'no-install': noInstall,
@@ -29,13 +28,8 @@ import frameworks from './templates'
     typescript,
   } = await yargs(hideBin(process.argv))
     .scriptName(name)
-    .usage('Usage: $0 <project-directory> [options]')
+    .usage('Usage: $0 <project-directory> [app]')
     .example('$0 new-app', 'Creates a new Jamstack app')
-    .option('app', {
-      alias: 'a',
-      choices: frameworkNames,
-      describe: 'Choose a framework',
-    })
     .option('bare', {
       alias: 'b',
       default: false,
@@ -68,10 +62,12 @@ import frameworks from './templates'
     .parse()
 
   // Get the directory for installation from the args
-  const targetDir = slugify(args[0] as string, {
-    lower: true,
-    strict: true,
-  })
+  const targetDir = args[0]
+    ? slugify(args[0] as string, {
+        lower: true,
+        strict: true,
+      })
+    : undefined
 
   // Throw an error if there is no target directory specified
   if (!targetDir) {
@@ -86,6 +82,16 @@ import frameworks from './templates'
     console.log(
       `  ${chalk.cyan('yarn create jam-app')} ${chalk.green('new-react-app')}`
     )
+    process.exit(1)
+  }
+
+  const app = args[1] as string
+
+  if (app && !frameworkNames.includes(app)) {
+    console.error(`App option '${app}' does not exist`)
+    console.log()
+    console.log('Available options are:')
+    console.log(frameworkNames.join(', '))
     process.exit(1)
   }
 
@@ -244,7 +250,7 @@ import frameworks from './templates'
             task.skip('Skipping install on request')
           }
 
-          return execa(`${config.pkgManager} install`, {
+          execa(`${config.pkgManager} install`, {
             shell: true,
             cwd: newAppDir,
           })
@@ -262,7 +268,7 @@ import frameworks from './templates'
               {
                 title: "Running 'git init'...",
                 task: () => {
-                  return execa('git init', {
+                  execa('git init', {
                     shell: true,
                     cwd: newAppDir,
                   })
@@ -271,7 +277,7 @@ import frameworks from './templates'
               {
                 title: 'Renaming git default branch...',
                 task: () => {
-                  return execa('git checkout -b main', {
+                  execa('git checkout -b main', {
                     shell: true,
                     cwd: newAppDir,
                   })
@@ -280,7 +286,7 @@ import frameworks from './templates'
               {
                 title: "Running 'git add .'...",
                 task: () => {
-                  return execa('git add .', {
+                  execa('git add .', {
                     shell: true,
                     cwd: newAppDir,
                   })
@@ -289,7 +295,7 @@ import frameworks from './templates'
               {
                 title: "Running 'git commit'...",
                 task: () => {
-                  return execa(
+                  execa(
                     `git commit -m 'Init ${config.app}/${config.template} app with create-jam'`,
                     {
                       shell: true,
