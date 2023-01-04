@@ -6,9 +6,9 @@ template: |
 categories:
   - title: ':boom: Breaking Changes'
     label: 'breaking change'
-  - title: ':package: New Template'
+  - title: ':package: New Templates'
     label: 'new template'
-  - title: ':sparkles: Enhancement'
+  - title: ':sparkles: Enhancements'
     label: 'enhancement'
   - title: ':bug: Bug Fixes'
     label: 'bug'
