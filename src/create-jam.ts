@@ -6,8 +6,8 @@ import chalk from 'chalk'
 import execa from 'execa'
 import fs from 'fs-extra'
 import { downloadTemplate } from 'giget'
-import inquirer from 'inquirer'
-import Listr from 'listr'
+import { Listr } from 'listr2'
+import prompts from 'prompts'
 import shell from 'shelljs'
 import slugify from 'slugify'
 import { hideBin } from 'yargs/helpers'
@@ -112,14 +112,12 @@ import frameworks from './templates'
 
   // Prompt for app value if none provided
   if (!config.app) {
-    const { app: chosenApp } = await inquirer.prompt([
-      {
-        type: 'list',
-        name: 'app',
-        message: 'Select a framework',
-        choices: frameworkNames,
-      },
-    ])
+    const { app: chosenApp } = await prompts({
+      type: 'autocomplete',
+      name: 'app',
+      message: 'Select a framework',
+      choices: frameworkNames.map((f) => ({ title: f, value: f })),
+    })
 
     config.app = chosenApp
   }
@@ -146,158 +144,15 @@ import frameworks from './templates'
 
     // Prompt for template value based on app if no template selected from previous actions
     if (!config.template) {
-      const { template } = await inquirer.prompt([
-        {
-          type: 'list',
-          name: 'template',
-          message: 'Select a template',
-          choices: availableTemplates,
-        },
-      ])
+      const { template } = await prompts({
+        type: 'autocomplete',
+        name: 'template',
+        message: `Select a ${config.app} template`,
+        choices: availableTemplates.map((f) => ({ title: f, value: f })),
+      })
 
       config.template = template
     }
-  }
-
-  const createProjectTasks = ({
-    newAppDir,
-    overwrite,
-  }: {
-    newAppDir: string
-    overwrite: boolean
-  }) => {
-    return [
-      {
-        title: `${
-          appDirExists ? 'Using' : 'Creating'
-        } directory '${newAppDir}'`,
-        task: async () => {
-          if (appDirExists && !overwrite) {
-            // make sure that the target directory is empty
-            if (fs.readdirSync(newAppDir).length > 0) {
-              console.error(
-                chalk.bold.red(
-                  `\n'${newAppDir}' already exists and is not empty\n`
-                )
-              )
-              process.exit(1)
-            }
-          } else {
-            fs.ensureDirSync(path.dirname(newAppDir))
-          }
-
-          const copyPath = `templates/${config.app}${
-            !singleTemplate ? `/${config.template}` : ''
-          }`
-
-          await downloadTemplate(
-            `github:spencerlabs/create-jam/${copyPath}#${
-              process.env.NODE_ENV === 'production' ? 'main' : 'next'
-            }`,
-            {
-              dir: newAppDir,
-              force: overwrite,
-              forceClean: overwrite,
-            }
-          )
-
-          if (fs.readdirSync(newAppDir).length === 0) {
-            throw new Error('No template found!')
-          }
-
-          fs.rmSync(path.join(newAppDir, 'yarn.lock'), { force: true })
-          fs.rmSync(path.join(newAppDir, 'package-lock.json'), { force: true })
-
-          const gitignoreFile = path.join(newAppDir, 'gitignore.template')
-
-          if (fs.existsSync(gitignoreFile)) {
-            fs.rename(gitignoreFile, path.join(newAppDir, '.gitignore'))
-          }
-        },
-      },
-      {
-        title: 'Updating package name',
-        skip: () => {
-          const fileName = path.join(newAppDir, 'package.json')
-
-          if (!fs.existsSync(fileName)) {
-            return 'No package.json file'
-          }
-
-          const file = require(fileName)
-
-          if (!file.name) {
-            return 'No name in package.json file'
-          }
-        },
-        task: () => {
-          const fileName = `${newAppDir}/package.json`
-          const file = require(fileName)
-
-          file.name = targetDir
-
-          fs.writeFileSync(fileName, JSON.stringify(file, null, 2))
-        },
-      },
-    ]
-  }
-
-  const installNodeModulesTasks = ({ newAppDir }: { newAppDir: string }) => {
-    return [
-      {
-        title: `Running '${config.pkgManager} install'...`,
-        task: () => {
-          return execa(`${config.pkgManager} install`, {
-            shell: true,
-            cwd: newAppDir,
-          })
-        },
-      },
-    ]
-  }
-
-  const initGit = ({ newAppDir }: { newAppDir: string }) => {
-    return [
-      {
-        title: "Running 'git init'...",
-        task: () => {
-          return execa('git init', {
-            shell: true,
-            cwd: newAppDir,
-          })
-        },
-      },
-      {
-        title: 'Renaming git default branch...',
-        task: () => {
-          return execa('git checkout -b main', {
-            shell: true,
-            cwd: newAppDir,
-          })
-        },
-      },
-      {
-        title: "Running 'git add .'...",
-        task: () => {
-          return execa('git add .', {
-            shell: true,
-            cwd: newAppDir,
-          })
-        },
-      },
-      {
-        title: "Running 'git commit'...",
-        task: () => {
-          return execa(
-            `git commit -m 'Init ${config.app}/${config.template} app with create-jam'`,
-            {
-              shell: true,
-              cwd: newAppDir,
-            }
-          )
-        },
-      },
-    ]
   }
 
   new Listr(
@@ -306,34 +161,154 @@ import frameworks from './templates'
         title: `Creating ${config.app} app${
           config.template ? ` with ${config.template} template` : ''
         }`,
-        task: () =>
-          new Listr(createProjectTasks({ newAppDir, overwrite: overwrite }), {
-            exitOnError: true,
-          }),
+        task: (_ctx, task) =>
+          task.newListr(
+            [
+              {
+                title: `${
+                  appDirExists ? 'Using' : 'Creating'
+                } directory '${newAppDir}'`,
+                task: async () => {
+                  if (appDirExists && !overwrite) {
+                    // make sure that the target directory is empty
+                    if (fs.readdirSync(newAppDir).length > 0) {
+                      console.error(
+                        chalk.bold.red(
+                          `\n'${newAppDir}' already exists and is not empty\n`
+                        )
+                      )
+                      process.exit(1)
+                    }
+                  } else {
+                    fs.ensureDirSync(path.dirname(newAppDir))
+                  }
+
+                  const copyPath = `templates/${config.app}${
+                    !singleTemplate ? `/${config.template}` : ''
+                  }`
+
+                  await downloadTemplate(
+                    `github:spencerlabs/create-jam/${copyPath}#${
+                      process.env.NODE_ENV === 'production' ? 'main' : 'next'
+                    }`,
+                    {
+                      dir: newAppDir,
+                      force: overwrite,
+                      forceClean: overwrite,
+                    }
+                  )
+
+                  if (fs.readdirSync(newAppDir).length === 0) {
+                    throw new Error('No template found!')
+                  }
+
+                  fs.rmSync(path.join(newAppDir, 'yarn.lock'), { force: true })
+                  fs.rmSync(path.join(newAppDir, 'package-lock.json'), {
+                    force: true,
+                  })
+
+                  const gitignoreFile = path.join(
+                    newAppDir,
+                    'gitignore.template'
+                  )
+
+                  if (fs.existsSync(gitignoreFile)) {
+                    fs.rename(gitignoreFile, path.join(newAppDir, '.gitignore'))
+                  }
+                },
+              },
+              {
+                title: 'Updating package name',
+                task: (_ctx, task) => {
+                  const fileName = path.join(newAppDir, 'package.json')
+
+                  if (!fs.existsSync(fileName)) {
+                    task.skip('No package.json file')
+                  }
+
+                  const file = require(fileName)
+
+                  if (!file.name) {
+                    task.skip('No name in package.json file')
+                  }
+
+                  file.name = targetDir
+
+                  fs.writeFileSync(fileName, JSON.stringify(file, null, 2))
+                },
+              },
+            ],
+            { exitOnError: true, rendererOptions: { collapse: false } }
+          ),
       },
       {
         title: 'Installing packages',
-        skip: () => {
+        task: (_ctx, task) => {
           if (bare || noInstall) {
-            return 'Skipping install on request'
+            task.skip('Skipping install on request')
           }
+
+          return execa(`${config.pkgManager} install`, {
+            shell: true,
+            cwd: newAppDir,
+          })
         },
-        task: () =>
-          new Listr(installNodeModulesTasks({ newAppDir }), {
-            exitOnError: true,
-          }),
       },
       {
         title: 'Initializing git',
-        skip: () => {
+        task: (_ctx, task) => {
           if (bare || noInit) {
-            return 'Skipping git initialization on request'
+            task.skip('Skipping git initialization on request')
           }
+
+          task.newListr(
+            [
+              {
+                title: "Running 'git init'...",
+                task: () => {
+                  return execa('git init', {
+                    shell: true,
+                    cwd: newAppDir,
+                  })
+                },
+              },
+              {
+                title: 'Renaming git default branch...',
+                task: () => {
+                  return execa('git checkout -b main', {
+                    shell: true,
+                    cwd: newAppDir,
+                  })
+                },
+              },
+              {
+                title: "Running 'git add .'...",
+                task: () => {
+                  return execa('git add .', {
+                    shell: true,
+                    cwd: newAppDir,
+                  })
+                },
+              },
+              {
+                title: "Running 'git commit'...",
+                task: () => {
+                  return execa(
+                    `git commit -m 'Init ${config.app}/${config.template} app with create-jam'`,
+                    {
+                      shell: true,
+                      cwd: newAppDir,
+                    }
+                  )
+                },
+              },
+            ],
+            { exitOnError: true, rendererOptions: { collapse: false } }
+          )
         },
-        task: () => new Listr(initGit({ newAppDir }), { exitOnError: true }),
       },
     ],
-    { exitOnError: true }
+    { exitOnError: true, rendererOptions: { collapse: false } }
   )
     .run()
     .then(() => {
