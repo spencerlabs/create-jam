@@ -21,7 +21,7 @@ Create a [Jamstack](https://jamstack.org) app with many of the most popular fram
 | [Remix](https://remix.run/)                              | `remix`      | <ul><li>`arc` (js and ts)</li><li>`cloudflare-pages` (js and ts)</li><li>`cloudflare-workers` (js and ts)</li><li>`deno` (js and ts)</li><li>`express` (js and ts)</li><li>`fly` (js and ts)</li><li>`netlify` (js and ts)</li><li>`remix` (js and ts)</li><li>`vercel` (js and ts)</li></ul> |                    |
 | [Vite](https://vitejs.Dev/)                              | `vite`       | <ul><li>`vanilla` (js and ts)</li><li>`vue` (js and ts)</li><li>`react` (js and ts)</li><li>`preact` (js and ts)</li><li>`lit` (js and ts)</li><li>`svelte` (js and ts)</li></ul>                                                                                                             |                    |
 
-## Using `create-jam`
+## Usage (CLIs)
 
 ```bash
 # yarn
@@ -92,22 +92,40 @@ yarn create jam <project-name> --overwrite
 yarn create jam <project-name> -o
 ```
 
-### Disabling defaults
+### `--canary`
 
-#### `--no-install`
+Passing the canary flag will pull templates from the default repo branch rather than the release branch.
 
-By default `create-jam` will install the packages for the project. To disable this, add the `--no-install` flag:
+For example, without canary the `v0.5.0` release will use the `v0.5.0` release tagged branch which will maintain consistent results.
+
+Using canary will pull from the templates on the default (`next`) branch at that moment in time. This means the templates in the release and the templates in the canary version could differ or not even exist.
+
+The canary flag is most useful for testing and should not be relied on for production.
+
+### `--template`
+
+Passing a template value will select the corresponding template without the need to do so in the CLI. If the template does not exist it will ignore the provided value, unless the `canary` flag is used then it will proceed with the value.
 
 ```bash
-yarn create jam <project-name> --no-install
+yarn create jam <project-name> vite --template vue
 ```
 
-#### `--no-init`
+### Disabling defaults
 
-By default `create-jam` will run `git init` to initialize Git in the repo. To disable this, add the `--no-init` flag:
+#### `--noInstall`
+
+By default `create-jam` will install the packages for the project. To disable this, add the `--noInstall` flag:
 
 ```bash
-yarn create jam <project-name> --no-init
+yarn create jam <project-name> --noInstall
+```
+
+#### `--noInit`
+
+By default `create-jam` will run `git init` to initialize Git in the repo and create a first commit. To disable this, add the `--noInit` flag:
+
+```bash
+yarn create jam <project-name> --noInit
 ```
 
 #### `--bare | -b`
@@ -120,11 +138,45 @@ yarn create jam <project-name> --bare
 yarn create jam <project-name> -b
 ```
 
+## Using (Programmatic)
+
+The package also ships with a programmatic way to create an application from one of the `create-jam` templates. The CLI actually uses this function under the hood.
+
+```js
+import { createJam } from 'create-jam';
+// or
+const { createJam } = require('create-jam');
+
+async function createApp() {
+  await createJam('example-app', 'react', {
+    canary: false,
+    overwrite: false,
+    template: 'typescript',
+  })
+}
+```
+
+The configuration options for the function match the corresponding CLI options:
+
+```ts
+export type CreateJamOptions = {
+  canary?: boolean
+  overwrite?: boolean
+  template?: string
+}
+
+const createJam = async (
+  dir: string,
+  app: string,
+  options: CreateJamOptions
+) => {}
+```
+
 ## Contributing
 
-`create-jam` uses GitHub actions to check and pull changes from the respective app templates. Each app (React, Redwood, etc.) has it's own action which calls the core `create-app` action.
+`create-jam` uses GitHub actions to check and pull changes from the respective app templates. Each app (React, Redwood, etc.) has it's own action which calls the core [`create-app` action](./.github/workflows/create-app.yml).
 
-### Recommending a new framework to support
+### Recommending a new framework
 
 Head to our [ideas discussions](https://github.com/spencerlabs/create-jam/discussions/categories/ideas) to comment on other people's framework suggestions or, if you don't see one you want, start your own framework discussion.
 
