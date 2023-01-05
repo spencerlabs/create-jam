@@ -1,4 +1,8 @@
-const templates: { [key: string]: string[] } = {
+type Templates = {
+  [x: string]: string[]
+}
+
+const templates: Templates = {
   docusaurus: ['javascript', 'typescript'],
   eleventy: [],
   gatsby: ['javascript', 'typescript'],
