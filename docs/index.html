@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Jam</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Create a Jamstack app with the most popular frameworks through a single CLI">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+  <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css">
+  <link rel="stylesheet" media="(prefers-color-scheme: light)" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">
+
+  <!-- Custom Styles -->
+  <style>
+    :root {
+      --base-font-size: 16px;
+      --link-color: var(--theme-color);
+      --modular-scale: 1.333;
+      --sidebar-name-font-weight: 700;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --theme-color: #9a8c98;
+      }
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --theme-color: #22223b;
+      }
+    }
+
+    .sidebar-nav {
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script src="//cdn.jsdelivr.net/npm/docsify-edit-on-github"></script>
+
+  <script>
+    window.$docsify = {
+      name: 'Create Jam',
+      repo: 'spencerlabs/create-jam',
+      loadSidebar: true,
+      subMaxLevel: 3,
+      auto2top: true,
+      plugins: [
+        EditOnGithubPlugin.create(
+          'https://github.com/spencerlabs/create-jam/blob/next/docs/',
+          null,
+          'Edit on GitHub'
+        )
+      ],
+    }
+  </script>
+
+  <!-- Docsify v4 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/js/docsify-themeable.min.js"></script>
+
+  <!-- Plugins -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-tabs@1"></script>
+  <script src="https://unpkg.com/docsify-copy-code@2"></script>
+
+</body>
+</html>
