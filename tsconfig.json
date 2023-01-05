@@ -27,6 +27,9 @@
     "src",
     "types"
   ],
+  "exclude": [
+    "templates"
+  ],
   "ts-node": {
     "files": true
   }
