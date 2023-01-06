@@ -19,13 +19,12 @@
     "paths": {
       "src/*": [
         "./src/*"
-      ],
-      "types/*": ["./types/*"]
-    },
+      ]
+    }
   },
   "include": [
-    "src",
-    "types"
+    "src/**/*",
+    "tests/**/*"
   ],
   "exclude": [
     "templates"

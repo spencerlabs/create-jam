@@ -16,7 +16,7 @@ import frameworks from './templates'
 
 import { createJam } from '.'
 
-async function main() {
+export async function main() {
   const {
     _: args,
     bare,
@@ -90,11 +90,14 @@ async function main() {
 
   // Prompt for directory value if none provided
   if (!config.dir) {
-    const { dir } = await prompts({
-      type: 'text',
-      name: 'dir',
-      message: 'Directory name',
-    })
+    const { dir } = await prompts(
+      {
+        type: 'text',
+        name: 'dir',
+        message: 'Directory name',
+      },
+      { onCancel: () => process.exit(1) }
+    )
 
     config.dir = dir as string
   }
@@ -118,12 +121,15 @@ async function main() {
 
   // Prompt for app value if none provided
   if (!config.app) {
-    const { app: chosenApp } = await prompts({
-      type: 'autocomplete',
-      name: 'app',
-      message: 'Select a framework',
-      choices: frameworkNames.map((f) => ({ title: f, value: f })),
-    })
+    const { app: chosenApp } = await prompts(
+      {
+        type: 'autocomplete',
+        name: 'app',
+        message: 'Select a framework',
+        choices: frameworkNames.map((f) => ({ title: f, value: f })),
+      },
+      { onCancel: () => process.exit(1) }
+    )
 
     config.app = chosenApp as string
   }
@@ -171,12 +177,15 @@ async function main() {
 
     // Prompt for template value based on app if no template selected from previous actions
     if (!config.template) {
-      const { template } = await prompts({
-        type: 'autocomplete',
-        name: 'template',
-        message: `Select a ${config.app} template`,
-        choices: availableTemplates.map((f) => ({ title: f, value: f })),
-      })
+      const { template } = await prompts(
+        {
+          type: 'autocomplete',
+          name: 'template',
+          message: `Select a ${config.app} template`,
+          choices: availableTemplates.map((f) => ({ title: f, value: f })),
+        },
+        { onCancel: () => process.exit(1) }
+      )
 
       config.template = template
     }
