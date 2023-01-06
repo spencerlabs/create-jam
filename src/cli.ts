@@ -16,7 +16,7 @@ import frameworks from './templates'
 
 import { createJam } from '.'
 
-export async function main() {
+async function main() {
   const {
     _: args,
     bare,
