@@ -2,6 +2,7 @@ node_modules
 dist
 example-app
 example-build-app
+.tmp
 
 .yarn/*
 !.yarn/patches
