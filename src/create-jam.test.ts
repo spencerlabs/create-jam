@@ -2,7 +2,7 @@ import { existsSync, readdirSync, mkdirSync, writeFileSync } from 'node:fs'
 import { rm } from 'node:fs/promises'
 import { resolve } from 'node:path'
 
-import { createJam } from '../src'
+import { createJam } from '.'
 
 const tmpDir = resolve(__dirname, '.tmp')
 
