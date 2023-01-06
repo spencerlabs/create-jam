@@ -1,6 +1,5 @@
 import path from 'node:path'
 
-import { bold, red } from 'colorette'
 import fs from 'fs-extra'
 import { downloadTemplate } from 'giget'
 
@@ -31,18 +30,33 @@ export const createJam = async (
 ) => {
   const frameworkNames = Object.keys(frameworks)
 
-  if (!frameworkNames.includes(app) && !options?.canary) {
-    console.error(`${red(`App option '${app}' does not exist`)}`)
-    process.exit(1)
+  if (!dir) {
+    throw new Error('No directory provided')
   }
 
+  if (!app) {
+    throw new Error('No app type provided')
+  }
+
+  if (!frameworkNames.includes(app) && !options?.canary) {
+    throw new Error(`App option '${app}' does not exist`)
+  }
+
+  if (
+    options?.template &&
+    !options.canary &&
+    !frameworks[app].includes(options.template)
+  ) {
+    throw new Error(
+      `App option '${app}' does not have a template ${options.template}`
+    )
+  }
   const appDirExists = fs.existsSync(dir)
 
   if (appDirExists && !options?.overwrite) {
     // make sure that the target directory is empty
     if (fs.readdirSync(dir).length > 0) {
-      console.error(bold(red(`\n'${dir}' already exists and is not empty\n`)))
-      process.exit(1)
+      throw new Error(`'${dir}' already exists and is not empty`)
     }
   } else {
     fs.ensureDirSync(path.dirname(dir))
@@ -64,8 +78,7 @@ export const createJam = async (
   )
 
   if (fs.readdirSync(dir).length === 0) {
-    console.error(bold(red('No template found!')))
-    process.exit(1)
+    throw new Error('No template found!')
   }
 
   fs.rmSync(path.join(dir, 'yarn.lock'), { force: true })
@@ -76,6 +89,6 @@ export const createJam = async (
   const gitignoreFile = path.join(dir, 'gitignore.template')
 
   if (fs.existsSync(gitignoreFile)) {
-    fs.rename(gitignoreFile, path.join(dir, '.gitignore'))
+    fs.renameSync(gitignoreFile, path.join(dir, '.gitignore'))
   }
 }
