@@ -42,7 +42,7 @@
   "scripts": {
     "cmd": "ts-node src/cli.ts example-app -bo",
     "cmd:built": "yarn build && node dist/src/cli.js example-build-app -bo",
-    "docs:serve": "docsify serve ./docs",
+    "docs:serve": "npx docsify serve ./docs",
     "test": "jest",
     "build": "rm -rf dist && tsc -p ."
   },
@@ -64,7 +64,6 @@
     "@types/node": "^18.11.17",
     "@types/prompts": "^2.4.2",
     "@types/shelljs": "^0.8.11",
-    "docsify": "^4.13.0",
     "jest": "^29.3.1",
     "ts-jest": "^29.0.3",
     "ts-node": "^10.9.1",
