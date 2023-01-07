@@ -22,7 +22,7 @@ jobs:
       package: blitz
       command: "blitz new"
       type: "${{ matrix.template }}${{ fromJson(matrix.app).type }}"
-      flags: "--template ${{ matrix.template }} --no-git --yarn --form finalform ${{ fromJson(matrix.app).flags }}"
+      flags: "--template ${{ matrix.template }} --skip-install --no-git --yarn --form finalform ${{ fromJson(matrix.app).flags }}"
 
   pr:
     needs: create_apps
