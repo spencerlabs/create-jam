@@ -1,13 +1,15 @@
-import Image from 'next/image';
-import logo from "public/logo.png";
+import Image from 'next/image'
+import { BlitzPage } from "@blitzjs/next"
+import logo from "public/logo.png"
 
 /*
  * This file is just for a pleasant getting started page for your new app.
  * You can delete everything in here and start from scratch if you like.
  */
 
-const Home = () => {
-  return <div className="container">
+const Home: BlitzPage = () => {
+  return (
+    <div className="container">
       <main>
         <div className="logo">
           <Image src={logo} alt="blitzjs" />
@@ -15,23 +17,40 @@ const Home = () => {
         <p>
           <strong>Congrats!</strong> Your app is ready.
         </p>
-        <div className="buttons" style={{
-        marginTop: "5rem"
-      }}>
-          <a className="button" href="https://blitzjs.com/docs/getting-started?utm_source=blitz-new&utm_medium=app-template&utm_campaign=blitz-new" target="_blank" rel="noopener noreferrer">
+        <div className="buttons" style={{ marginTop: "5rem" }}>
+          <a
+            className="button"
+            href="https://blitzjs.com/docs/getting-started?utm_source=blitz-new&utm_medium=app-template&utm_campaign=blitz-new"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Documentation
           </a>
-          <a className="button-outline" href="https://github.com/blitz-js/blitz" target="_blank" rel="noopener noreferrer">
+          <a
+            className="button-outline"
+            href="https://github.com/blitz-js/blitz"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Github Repo
           </a>
-          <a className="button-outline" href="https://discord.blitzjs.com" target="_blank" rel="noopener noreferrer">
+          <a
+            className="button-outline"
+            href="https://discord.blitzjs.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Discord Community
           </a>
         </div>
       </main>
 
       <footer>
-        <a href="https://blitzjs.com?utm_source=blitz-new&utm_medium=app-template&utm_campaign=blitz-new" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://blitzjs.com?utm_source=blitz-new&utm_medium=app-template&utm_campaign=blitz-new"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Powered by Blitz.js
         </a>
       </footer>
@@ -168,6 +187,9 @@ const Home = () => {
           }
         }
       `}</style>
-    </div>;
-};
-export default Home;
+    </div>
+  )
+}
+
+
+export default Home
