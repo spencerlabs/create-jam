@@ -14,9 +14,9 @@ on:
         required: true
         description: "Base create command (ex. 'react-app' or 'gatsby init')"
         type: string
-      git:
+      giget:
         default: ''
-        description: "Git clone URL for git repo installs"
+        description: 'GitHub repo path (ex. spencerlabs/create-jam/templates/react/typescript)'
         type: string
       type:
         default: ''
@@ -53,16 +53,11 @@ jobs:
         run: |
           sudo mkdir app
 
-      - if: inputs.git == '' && inputs.package == ''
+      - if: inputs.giget == '' && inputs.package == ''
         name: Create with create command
         working-directory: ./app
         run: |
           sudo npx create-${{ inputs.command }} jam-app ${{ inputs.flags }}
-
-      - if: inputs.git
-        name: Create with git clone
-        working-directory: ./app
-        run: sudo git clone ${{ inputs.git }} jam-app
 
       - if: inputs.package
         name: Create with CLI
@@ -71,6 +66,12 @@ jobs:
           sudo npm install -g ${{ inputs.package }}
           [ "${{ inputs.create_dir }}" = true ] && sudo mkdir jam-app
           sudo ${{ inputs.command }} jam-app ${{ inputs.flags }}
+
+      - if: inputs.giget
+        name: Create with Giget
+        working-directory: ./app
+        run: |
+          sudo npx giget@latest github:${{ inputs.giget }} jam-app --force --force-clean
 
         # delete extra files and add empty lock file to prevent workspace install
       - name: Clean up app
