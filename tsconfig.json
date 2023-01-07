@@ -23,10 +23,10 @@
     }
   },
   "include": [
-    "src/**/*"
+    "./src/**/*"
   ],
   "exclude": [
-    "templates"
+    "**/*.test.*"
   ],
   "ts-node": {
     "files": true
