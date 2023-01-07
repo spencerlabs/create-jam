@@ -1,6 +1,6 @@
 # Create JAM App
 
-Create a [Jamstack](https://jamstack.org) app with the most popular frameworks through a single CLI.
+Create [Jamstack](https://jamstack.org) apps from the most popular frameworks in a single CLI!
 
 ## Documentation
 
