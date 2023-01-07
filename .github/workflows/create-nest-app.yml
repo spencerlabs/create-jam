@@ -1,0 +1,31 @@
+name: Create Nest App
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 5 * * *'
+
+jobs:
+  create_apps:
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+      matrix:
+        app:
+          - "{ type: 'typescript', flags: '-l ts --strict' }"
+          - "{ type: 'javascript', flags: '-l js' }"
+    uses: ./.github/workflows/create-app.yml
+    with:
+      name: nest
+      package: "@nestjs/cli"
+      command: nest new
+      type: ${{ fromJson(matrix.app).type }}
+      flags: "-g -s -p yarn ${{ fromJson(matrix.app).flags }}"
+
+  pr:
+    needs: create_apps
+    uses: ./.github/workflows/pr.yml
+    with:
+      name: nest
+      command: nest new
+      cli: true
+      color: ea2845
