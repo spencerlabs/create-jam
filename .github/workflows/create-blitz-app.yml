@@ -30,4 +30,5 @@ jobs:
     with:
       name: blitz
       command: blitz new
+      cli: true
       color: 6700eb
