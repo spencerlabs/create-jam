@@ -3,6 +3,7 @@ type Templates = {
 }
 
 const templates: Templates = {
+  blitz: ['full', 'full-ts', 'minimal', 'minimal-ts'],
   docusaurus: ['javascript', 'typescript'],
   eleventy: [],
   gatsby: ['javascript', 'typescript'],
