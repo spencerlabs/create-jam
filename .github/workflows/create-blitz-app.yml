@@ -1,0 +1,33 @@
+name: Create Blitz App
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 5 * * *'
+
+jobs:
+  create_apps:
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+      matrix:
+        app:
+          - "{ type: '-ts', flags: '--language typescript' }"
+          - "{ type: '', flags: '--language javascript' }"
+        template:
+          - full
+          - minimal
+    uses: ./.github/workflows/create-app.yml
+    with:
+      name: blitz
+      package: blitz
+      command: "blitz new"
+      type: "${{ matrix.template }}${{ fromJson(matrix.app).type }}"
+      flags: "--template ${{ matrix.template }} --no-git --yarn --form finalform ${{ fromJson(matrix.app).flags }}"
+
+  pr:
+    needs: create_apps
+    uses: ./.github/workflows/pr.yml
+    with:
+      name: blitz
+      command: blitz new
+      color: 6700eb
