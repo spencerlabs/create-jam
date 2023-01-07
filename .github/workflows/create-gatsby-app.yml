@@ -11,19 +11,19 @@ jobs:
       fail-fast: false
       matrix:
         app:
-          - "{ type: 'typescript', git: 'https://github.com/gatsbyjs/gatsby-starter-minimal-ts.git' }"
-          - "{ type: 'javascript', git: 'https://github.com/gatsbyjs/gatsby-starter-minimal.git' }"
+          - "{ type: 'typescript', git: 'gatsby-starter-minimal-ts' }"
+          - "{ type: 'javascript', git: 'gatsby-starter-minimal' }"
     uses: ./.github/workflows/create-app.yml
     with:
       name: gatsby
-      command: git clone
+      command: ""
+      giget: "gatsbyjs/${{ fromJson(matrix.app).git }}#master"
       type: ${{ fromJson(matrix.app).type }}
-      git: "${{ fromJson(matrix.app).git }}"
 
   pr:
     needs: create_apps
     uses: ./.github/workflows/pr.yml
     with:
       name: gatsby
-      command: git clone
+      command: giget
       color: "663399"
