@@ -54,13 +54,13 @@ jobs:
           sudo mkdir app
 
       - if: inputs.git == '' && inputs.package == ''
-        name: Run create command
+        name: Create with create command
         working-directory: ./app
         run: |
           sudo npx create-${{ inputs.command }} jam-app ${{ inputs.flags }}
 
       - if: inputs.git
-        name: Git clone
+        name: Create with git clone
         working-directory: ./app
         run: sudo git clone ${{ inputs.git }} jam-app
 
@@ -77,9 +77,13 @@ jobs:
         working-directory: ./app/jam-app
         run: |
           sudo rm -f yarn.lock package-lock.json LICENSE .github/FUNDING.yml
+          echo 'Removed files'
           sudo rm -rf .git node_modules
+          echo 'Removed folders'
           sudo touch yarn.lock
+          echo 'Added blank yarn.lock'
           [ -f ".gitignore" ] && sudo mv .gitignore gitignore.template
+          [ -f ".gitignore" ] && echo 'Renamed .gitignore'
 
         # create or switch to template branch
       - name: Switch to template branch
