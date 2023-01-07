@@ -9,6 +9,24 @@
 >
 >Due to the nature of wrapping other CLIs, some features of those CLIs are not available through `create-jam` while others are pre-configured and opinionated.
 
+## Astro
+
+**Website**: [astro.build](https://astro.build/)
+
+**ID**: `astro`
+
+**Templates**:
+
+- `basis`
+- `blog`
+- `minimal`
+
+**Changelog**:
+
+| Version                                                                   | Details                         |
+| ------------------------------------------------------------------------- | ------------------------------- |
+| [`v1.1.0`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.0) | Added templates to `create-jam` |
+
 ## Blitz
 
 **Website**: [blitzjs.com](https://blitzjs.com/)
@@ -27,7 +45,6 @@
 | Flag     | Value       |
 | -------- | ----------- |
 | `--form` | `finalform` |
-
 
 **Changelog**:
 
