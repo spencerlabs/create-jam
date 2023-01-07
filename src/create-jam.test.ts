@@ -57,6 +57,7 @@ describe('createJam', () => {
     writeFileSync(resolve(appDir, testFile), 'test')
 
     await createJam(appDir, 'react', {
+      canary: true,
       overwrite: true,
       template: 'typescript',
     })
@@ -76,6 +77,7 @@ describe('createJam', () => {
 
   it('should remove yarn.lock', async () => {
     await createJam(appDir, 'react', {
+      canary: true,
       template: 'typescript',
     })
 
@@ -84,6 +86,7 @@ describe('createJam', () => {
 
   it('should rename gitignore.template', async () => {
     await createJam(appDir, 'react', {
+      canary: true,
       template: 'typescript',
     })
 
@@ -130,6 +133,7 @@ describe('createJam', () => {
       )
 
       await createJam(destDir, t.app, {
+        canary: true,
         template: t.template,
       })
 
