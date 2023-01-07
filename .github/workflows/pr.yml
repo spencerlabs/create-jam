@@ -54,10 +54,10 @@ jobs:
       - name: PR message
         id: pr_message
         run: |
-          if [ "${{ inputs.package }}" == "" ]; then
-            echo "message=yarn create ${{ inputs.command }}" >> $GITHUB_OUTPUT
-          else
+          if [ "${{ inputs.cli }}" == "true" ]; then
             echo "message=${{ inputs.command }}" >> $GITHUB_OUTPUT
+          else
+            echo "message=yarn create ${{ inputs.command }}" >> $GITHUB_OUTPUT
           fi
           
       - name: Create label
