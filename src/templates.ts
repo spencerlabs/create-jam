@@ -8,6 +8,7 @@ const templates: Templates = {
   eleventy: [],
   gatsby: ['javascript', 'typescript'],
   hexo: [],
+  nest: ['javascript', 'typescript'],
   next: ['javascript', 'typescript'],
   nuxt: [],
   preact: ['default', 'netlify', 'simple', 'typescript'],

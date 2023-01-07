@@ -25,7 +25,7 @@
 **Default Configurations**:
 
 | Flag     | Value       |
-|----------|-------------|
+| -------- | ----------- |
 | `--form` | `finalform` |
 
 
@@ -94,6 +94,29 @@
 | ------------------------------------------------------------------------- | ------------------------------- |
 | [`v0.3.0`](https://github.com/spencerlabs/create-jam/releases/tag/v0.3.0) | Added templates to `create-jam` |
 
+## Nest
+
+**Website**: [nestjs.com](https://nestjs.com/)
+
+**ID**: `nest`
+
+**Templates**:
+
+- `javascript`
+- `typescript`
+
+**Default Configurations**:
+
+| Flag                                    | Value |
+| --------------------------------------- | ----- |
+| `--strict` (`typescript` template only) |       |
+
+**Changelog**:
+
+| Version                                                                   | Details                         |
+| ------------------------------------------------------------------------- | ------------------------------- |
+| [`v1.1.0`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.0) | Added templates to `create-jam` |
+
 ## Next.js
 
 **Website**: [nextjs.org](https://nextjs.org/)
@@ -108,7 +131,7 @@
 **Default Configurations**:
 
 | Flag       | Value |
-|------------|-------|
+| ---------- | ----- |
 | `--eslint` |       |
 
 **Changelog**:
