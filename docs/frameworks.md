@@ -17,7 +17,7 @@
 
 **Templates**:
 
-- `basis`
+- `basics`
 - `blog`
 - `minimal`
 
