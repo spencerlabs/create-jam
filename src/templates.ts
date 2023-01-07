@@ -3,6 +3,7 @@ type Templates = {
 }
 
 const templates: Templates = {
+  astro: ['basics', 'blog', 'minimal'],
   blitz: ['full', 'full-ts', 'minimal', 'minimal-ts'],
   docusaurus: ['javascript', 'typescript'],
   eleventy: [],
