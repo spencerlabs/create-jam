@@ -11,7 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         app:
-          - "{ type: '-ts', flags: '--language typescript' }"
+          - "{ type: '-ts', flags: '--language TypeScript' }"
           - "{ type: '', flags: '--language javascript' }"
         template:
           - full
