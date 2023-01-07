@@ -1,7 +1,7 @@
 {
   "name": "create-jam",
   "description": "Command line interface for quickly spinning up new Jamstack apps",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/spencerlabs/create-jam"
