@@ -80,10 +80,10 @@ jobs:
           echo 'Removed files'
           sudo rm -rf .git node_modules
           echo 'Removed folders'
-          sudo touch yarn.lock
-          echo 'Added blank yarn.lock'
           [ -f ".gitignore" ] && sudo mv .gitignore gitignore.template
           [ -f ".gitignore" ] && echo 'Renamed .gitignore'
+          sudo touch yarn.lock
+          echo 'Added blank yarn.lock'
 
         # create or switch to template branch
       - name: Switch to template branch
