@@ -10,6 +10,7 @@ We regenerate the app templates daily so they are always up-to-date with the lat
 
 ## Frameworks
 
+- [Blitz](/frameworks?id=blitz)
 - [Docusaurus](/frameworks?id=docusaurus)
 - [Eleventy](/frameworks?id=eleventy)
 - [Gatsby](/frameworks?id=gatsby)

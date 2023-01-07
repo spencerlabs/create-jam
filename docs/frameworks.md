@@ -9,6 +9,25 @@
 >
 >Due to the nature of wrapping other CLIs, some features of those CLIs are not available through `create-jam` while others are pre-configured and opinionated.
 
+## Blitz
+
+**Website**: [blitzjs.com](https://blitzjs.com/)
+
+**ID**: `blitz`
+
+**Templates**:
+
+- `full`
+- `full-ts`
+- `minimal`
+- `minimal-ts`
+
+**Changelog**:
+
+| Version                                                                   | Details                         |
+| ------------------------------------------------------------------------- | ------------------------------- |
+| [`v1.1.0`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.0) | Added templates to `create-jam` |
+
 ## Docusaurus
 
 **Website**: [docusaurus.io](https://docusaurus.io/)
