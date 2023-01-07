@@ -22,6 +22,13 @@
 - `minimal`
 - `minimal-ts`
 
+**Default Configurations**:
+
+| Flag     | Value       |
+|----------|-------------|
+| `--form` | `finalform` |
+
+
 **Changelog**:
 
 | Version                                                                   | Details                         |
@@ -97,6 +104,12 @@
 
 - `javascript`
 - `typescript`
+
+**Default Configurations**:
+
+| Flag       | Value |
+|------------|-------|
+| `--eslint` |       |
 
 **Changelog**:
 
