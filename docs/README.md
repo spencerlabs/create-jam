@@ -15,6 +15,7 @@ We regenerate the app templates daily so they are always up-to-date with the lat
 - [Eleventy](/frameworks?id=eleventy)
 - [Gatsby](/frameworks?id=gatsby)
 - [Hexo](/frameworks?id=hexo)
+- [Nest](/frameworks?id=nest)
 - [Next.js](/frameworks?id=nextjs)
 - [Nuxt](/frameworks?id=nuxt)
 - [Preact](/frameworks?id=preact)
