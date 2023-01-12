@@ -50,6 +50,7 @@
 
 | Version                                                                   | Details                         |
 | ------------------------------------------------------------------------- | ------------------------------- |
+| [`v1.1.3`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.3) | Pulled latest updates           |
 | [`v1.1.0`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.0) | Added templates to `create-jam` |
 
 ## Docusaurus
