@@ -33,7 +33,7 @@
   ],
   "funding": {
     "type": "github",
-    "url": "https://github.com/sponsors/morganmspencer"
+    "url": "https://github.com/sponsors/spencerlabs"
   },
   "main": "./dist/src/index.js",
   "bin": "./dist/src/cli.js",
