@@ -24,16 +24,16 @@
     ]
   },
   "dependencies": {
-    "@blitzjs/auth": "2.0.0-beta.21",
-    "@blitzjs/next": "2.0.0-beta.21",
-    "@blitzjs/rpc": "2.0.0-beta.21",
+    "@blitzjs/auth": "2.0.0-beta.22",
+    "@blitzjs/next": "2.0.0-beta.22",
+    "@blitzjs/rpc": "2.0.0-beta.22",
     "@prisma/client": "4.6.0",
-    "blitz": "2.0.0-beta.21",
-    "next": "12.2.5",
+    "blitz": "2.0.0-beta.22",
+    "next": "13.1",
     "prisma": "4.6.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "zod": "3.19.1",
+    "zod": "3.20.2",
     "final-form": "4.20.8",
     "react-final-form": "6.5.9"
   },
