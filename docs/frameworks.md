@@ -171,6 +171,7 @@
 
 | Version                                                                   | Details                         |
 | ------------------------------------------------------------------------- | ------------------------------- |
+| [`v1.1.4`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.4) | Pulled latest updates           |
 | [`v0.3.0`](https://github.com/spencerlabs/create-jam/releases/tag/v0.3.0) | Added templates to `create-jam` |
 
 ## Preact
