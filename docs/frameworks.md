@@ -275,6 +275,7 @@
 
 | Version                                                                   | Details                         |
 | ------------------------------------------------------------------------- | ------------------------------- |
+| [`v1.1.4`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.4) | Pulled latest updates           |
 | [`v1.1.1`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.1) | Pulled latest updates           |
 | [`v0.6.1`](https://github.com/spencerlabs/create-jam/releases/tag/v0.6.1) | Pulled latest updates           |
 | [`v0.1.0`](https://github.com/spencerlabs/create-jam/releases/tag/v0.1.0) | Added templates to `create-jam` |
