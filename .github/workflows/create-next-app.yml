@@ -18,7 +18,7 @@ jobs:
       name: next
       command: next-app
       type: ${{ fromJson(matrix.app).type }}
-      flags: "--eslint --experimental-app ${{ fromJson(matrix.app).flags }}"
+      flags: "--eslint --experimental-app --src-dir ${{ fromJson(matrix.app).flags }}"
 
   pr:
     needs: create_apps
