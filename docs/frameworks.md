@@ -98,6 +98,7 @@
 
 | Version                                                                   | Details                         |
 | ------------------------------------------------------------------------- | ------------------------------- |
+| [`v1.1.5`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.5) | Pulled latest updates           |
 | [`v1.1.4`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.4) | Pulled latest updates           |
 | [`v1.1.3`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.3) | Pulled latest updates           |
 | [`v0.6.0`](https://github.com/spencerlabs/create-jam/releases/tag/v0.6.0) | Pulled latest updates           |
@@ -151,14 +152,17 @@
 
 **Default Configurations**:
 
-| Flag       | Value |
-| ---------- | ----- |
-| `--eslint` |       |
+| Flag                 | Value |
+| -------------------- | ----- |
+| `--eslint`           |       |
+| `--experimental-app` |       |
+| `--src-dir`          |       |
 
 **Changelog**:
 
 | Version                                                                   | Details                         |
 | ------------------------------------------------------------------------- | ------------------------------- |
+| [`v1.1.5`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.5) | Pulled latest updates           |
 | [`v0.3.0`](https://github.com/spencerlabs/create-jam/releases/tag/v0.3.0) | Pulled latest updates           |
 | [`v0.1.0`](https://github.com/spencerlabs/create-jam/releases/tag/v0.1.0) | Added templates to `create-jam` |
 
@@ -192,6 +196,7 @@
 
 | Version                                                                   | Details                         |
 | ------------------------------------------------------------------------- | ------------------------------- |
+| [`v1.1.5`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.5) | Pulled latest updates           |
 | [`v1.1.2`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.2) | Pulled latest updates           |
 | [`v0.3.0`](https://github.com/spencerlabs/create-jam/releases/tag/v0.3.0) | Added templates to `create-jam` |
 
@@ -210,6 +215,7 @@
 
 | Version                                                                   | Details                         |
 | ------------------------------------------------------------------------- | ------------------------------- |
+| [`v1.1.5`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.5) | Pulled latest updates           |
 | [`v0.1.0`](https://github.com/spencerlabs/create-jam/releases/tag/v0.1.0) | Added templates to `create-jam` |
 
 ## Redux
@@ -227,6 +233,7 @@
 
 | Version                                                                   | Details                         |
 | ------------------------------------------------------------------------- | ------------------------------- |
+| [`v1.1.5`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.5) | Pulled latest updates           |
 | [`v0.4.0`](https://github.com/spencerlabs/create-jam/releases/tag/v0.4.0) | Added templates to `create-jam` |
 
 ## Redwood
@@ -277,6 +284,7 @@
 
 | Version                                                                   | Details                         |
 | ------------------------------------------------------------------------- | ------------------------------- |
+| [`v1.1.5`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.5) | Pulled latest updates           |
 | [`v1.1.4`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.4) | Pulled latest updates           |
 | [`v1.1.1`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.1) | Pulled latest updates           |
 | [`v0.6.1`](https://github.com/spencerlabs/create-jam/releases/tag/v0.6.1) | Pulled latest updates           |
