@@ -151,9 +151,11 @@
 
 **Default Configurations**:
 
-| Flag       | Value |
-| ---------- | ----- |
-| `--eslint` |       |
+| Flag                 | Value |
+| -------------------- | ----- |
+| `--eslint`           |       |
+| `--experimental-app` |       |
+| `--src-dir`          |       |
 
 **Changelog**:
 
