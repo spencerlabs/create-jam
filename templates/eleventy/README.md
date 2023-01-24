@@ -1,8 +1,27 @@
-# eleventy-base-blog
+# eleventy-base-blog v8
 
-A starter repository showing how to build a blog with the [Eleventy](https://github.com/11ty/eleventy) static site generator.
+A starter repository showing how to build a blog with the [Eleventy](https://www.11ty.dev/) site generator (using the [v2.0 beta release](https://www.11ty.dev/blog/eleventy-v2-beta/)).
 
-[![Build Status](https://travis-ci.org/11ty/eleventy-base-blog.svg?branch=master)](https://travis-ci.org/11ty/eleventy-base-blog)
+## Features
+
+- Using [Eleventy v2.0](https://www.11ty.dev/blog/eleventy-v2-beta/) with zero-JavaScript output.
+- Content is entirely pre-rendered (this is a static site).
+- Four-hundos Lighthouse score out of the box!
+- Easily [deploy](#deploy-this-to-your-own-site) to various hosting providers.
+- Live reload provided by [Eleventy Dev Server](https://www.11ty.dev/docs/dev-server/).
+- Content-driven [hierarchical navigation](https://www.11ty.dev/docs/plugins/navigation/)
+- Automated [image optimization](https://www.11ty.dev/docs/plugins/image/) via the `{% image %}` shortcode (images can be co-located with posts) (with zero-JavaScript output).
+- Built-in [syntax highlighter](https://www.11ty.dev/docs/plugins/syntaxhighlight/) (with zero-JavaScript output).
+- Draft posts: use `draft: true` to mark a blog post as a draft. Drafts are **only** included during `--serve`/`--watch` and are excluded from full builds.
+- Automated next/previous links on blog posts.
+- Easily [deploy to a subfolder without changing any content](https://www.11ty.dev/docs/plugins/html-base/)
+- Easily configure templates via the [Eleventy Data Cascade](https://www.11ty.dev/docs/data-cascade/)
+- Output URLs are independent of content’s location on the file system.
+- Generated:
+	1. [feeds for Atom and JSON](https://www.11ty.dev/docs/plugins/rss/)
+	1. `sitemap.xml`
+	1. Tag pages ([demo](https://eleventy-base-blog.netlify.app/tags/))
+	1. Content not found (404) page
 
 ## Demos
 
@@ -15,9 +34,9 @@ A starter repository showing how to build a blog with the [Eleventy](https://git
 Deploy this Eleventy site in just a few clicks on these services:
 
 - [Get your own Eleventy web site on Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/11ty/eleventy-base-blog)
+- If you run Eleventy locally you can drag your `_site` folder to [`drop.netlify.com`](https://drop.netlify.com/) to upload it!
 - [Get your own Eleventy web site on Vercel](https://vercel.com/import/project?template=11ty%2Feleventy-base-blog)
-
-Or, read more about [Deploying an Eleventy project](https://www.11ty.dev/docs/deployment/).
+- Read more about [Deploying an Eleventy project](https://www.11ty.dev/docs/deployment/) to the web.
 
 ## Getting Started
 
@@ -33,7 +52,7 @@ git clone https://github.com/11ty/eleventy-base-blog.git my-blog-name
 cd my-blog-name
 ```
 
-Specifically have a look at `.eleventy.js` to see if you want to configure any Eleventy options differently.
+Specifically have a look at `eleventy.config.js` to see if you want to configure any Eleventy options differently.
 
 ### 3. Install dependencies
 
@@ -41,43 +60,46 @@ Specifically have a look at `.eleventy.js` to see if you want to configure any E
 npm install
 ```
 
-### 4. Edit \_data/metadata.json
+### 4. Edit `_data/metadata.json`
 
 ### 5. Run Eleventy
+
+Generate a production-ready build:
 
 ```
 npx @11ty/eleventy
 ```
 
-Or build and host locally for local development
+Or build and host locally on a local development server:
 
 ```
 npx @11ty/eleventy --serve
 ```
 
-Or build automatically when a template changes:
+Or in [debug mode](https://www.11ty.dev/docs/debugging/) to see all the internals:
 
 ```
-npx @11ty/eleventy --watch
-```
+# Mac OS/Linux/etc
+DEBUG=Eleventy* npx @11ty/eleventy
 
-Or in debug mode:
+# Windows
+set DEBUG=Eleventy* & npx @11ty/eleventy
 
-```
-DEBUG=* npx @11ty/eleventy
+# Windows (Powershell in VS Code)
+$env:DEBUG="Eleventy*"; npx @11ty/eleventy
 ```
 
 ### Implementation Notes
 
-- `about/index.md` shows how to add a content page.
-- `posts/` has the blog posts but really they can live in any directory. They need only the `post` tag to be added to this collection.
-- Use the `eleventyNavigation` key in your front matter to add a template to the top level site navigation. For example, this is in use on `index.njk` and `about/index.md`.
-- Content can be any template format (blog posts needn’t be markdown, for example). Configure your supported templates in `.eleventy.js` -> `templateFormats`.
-- The `css` and `img` directories in the input directory will be copied to the output folder (via `addPassthroughCopy()` in the `.eleventy.js` file).
-- The blog post feed template is in `feed/feed.njk`. This is also a good example of using a global data files in that it uses `_data/metadata.json`.
-- This example uses three layouts:
+- `content/about/index.md` is an example of a content page.
+- `content/blog/` has the blog posts but really they can live in any directory. They need only the `post` tag to be included in the blog posts [collection](https://www.11ty.dev/docs/collections/).
+- Use the `eleventyNavigation` key (via the [Eleventy Navigation plugin](https://www.11ty.dev/docs/plugins/navigation/)) in your front matter to add a template to the top level site navigation. This is in use on `content/index.njk` and `content/about/index.md`.
+- Content can be in _any template format_ (blog posts needn’t exclusively be markdown, for example). Configure your project’s supported templates in `eleventy.config.js` -> `templateFormats`.
+- The `public` folder in your input directory will be copied to the output folder (via `addPassthroughCopy` in the `eleventy.config.js` file). This means `./public/css/*` will live at `./_site/css/*` after your build completes.
+- The blog post feed template is in `feed/feed.njk`. This feed also uses the global data file at `_data/metadata.json`.
+- This project uses three layouts:
   - `_includes/layouts/base.njk`: the top level HTML structure
   - `_includes/layouts/home.njk`: the home page template (wrapped into `base.njk`)
   - `_includes/layouts/post.njk`: the blog post template (wrapped into `base.njk`)
-- `_includes/postlist.njk` is a Nunjucks include and is a reusable component used to display a list of all the posts. `index.njk` has an example of how to use it.
+- `_includes/postslist.njk` is a Nunjucks include and is a reusable component used to display a list of all the posts. `index.njk` has an example of how to use it.
 
