@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "colorette": "^2.0.19",
-    "execa": "5.1.1",
+    "execa": "7.1.0",
     "fs-extra": "^10.1.0",
     "giget": "^1.0.0",
     "listr2": "^5.0.7",
