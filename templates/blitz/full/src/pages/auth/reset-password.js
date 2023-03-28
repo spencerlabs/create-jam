@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import Layout from "src/core/layouts/Layout";
 import { LabeledTextField } from "src/core/components/LabeledTextField";
 import { Form, FORM_ERROR } from "src/core/components/Form";
@@ -9,14 +8,11 @@ import { useRouter } from "next/router";
 import { useMutation } from "@blitzjs/rpc";
 import Link from "next/link";
 const ResetPasswordPage = () => {
-  const [token, setToken] = useState("");
   const router = useRouter();
+  const token = router.query.token?.toString();
   const [resetPasswordMutation, {
     isSuccess
   }] = useMutation(resetPassword);
-  useEffect(() => {
-    setToken(router.query.token);
-  }, [router.isReady]);
   return <div>
       <h1>Set a New Password</h1>
 
