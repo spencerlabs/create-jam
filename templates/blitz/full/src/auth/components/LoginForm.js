@@ -34,7 +34,7 @@ export const LoginForm = props => {
         <LabeledTextField name="password" label="Password" placeholder="Password" type="password" />
         <div>
           <Link href={Routes.ForgotPasswordPage()}>
-            <a>Forgot your password?</a>
+            Forgot your password?
           </Link>
         </div>
       </Form>
@@ -44,7 +44,7 @@ export const LoginForm = props => {
     }}>
         Or{" "}
         <Link href={Routes.SignupPage()}>
-          <a>Sign Up</a>
+          Sign Up
         </Link>
       </div>
     </div>;
