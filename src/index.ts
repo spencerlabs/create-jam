@@ -1,9 +1,11 @@
 import execa from 'execa'
-import { cyan, gray, green, yellow } from 'kolorist'
 import minimist from 'minimist'
 import prompts from 'prompts'
 
 import { name, version } from '../package.json'
+
+import { FRAMEWORKS } from './lib/frameworks'
+import logger from './lib/logger'
 
 const pkgName = name.replace('create-', '')
 
@@ -14,63 +16,26 @@ const argv = minimist<{
   version?: boolean
 }>(process.argv.slice(2), { string: ['_'] })
 
-type Framework = {
-  name: string
-  display: string
-  type: 'create' | 'cli'
-  cmd?: string
-  projDir?: boolean
-}
-
-const FRAMEWORKS: Framework[] = [
-  { name: 'astro', display: 'Astro', type: 'create' },
-  { name: 'blitz', display: 'Blitz', type: 'cli', cmd: 'new' },
-  {
-    name: 'docusaurus',
-    display: 'Docusaurus',
-    type: 'create',
-  },
-  { name: 'nest', display: 'Nest', type: 'cli', cmd: 'new' },
-  { name: 'next', display: 'Next', type: 'create' },
-  {
-    name: 'nuxt',
-    display: 'Nuxt',
-    type: 'create',
-    projDir: true,
-  },
-  { name: 'preact', display: 'Preact', type: 'cli', cmd: 'create' },
-  {
-    name: 'react',
-    display: 'React',
-    type: 'create',
-    projDir: true,
-  },
-  {
-    name: 'redwood',
-    display: 'Redwood',
-    type: 'create',
-    projDir: true,
-  },
-  { name: 'remix', display: 'Remix', type: 'create' },
-  { name: 'vite', display: 'Vite', type: 'create' },
-]
-
 async function init() {
+  // Version information
   if (argv.version || argv.v) {
-    console.log(version)
+    logger.info(version)
     process.exit(0)
   }
 
+  // Help information
   if (argv.help || argv.h) {
-    console.log(gray(`  ${cyan(`yarn create ${pkgName}`)}`))
-    console.log(gray('  or'))
-    console.log(
-      gray(`  ${cyan(`yarn create ${pkgName} ${yellow('<framework>')}`)}`)
+    logger.text(`  ${logger.cyan(`yarn create ${pkgName}`)}`)
+    logger.text('  or')
+    logger.text(
+      `  ${logger.cyan(
+        `yarn create ${pkgName} ${logger.yellow('<framework>')}`
+      )}`
     )
-    console.log()
-    console.log(gray('  Available frameworks:'))
+    logger.text()
+    logger.text('  Available frameworks:')
     FRAMEWORKS.forEach((f) => {
-      console.log(green(`  ${f.name}`))
+      logger.green(`  ${f.name}`)
     })
     process.exit(0)
   }
@@ -78,14 +43,18 @@ async function init() {
   let argFramework = argv._[0]
   let argProjectDir = argv._[1]
 
+  // Allow user to choose a framework
   if (!argFramework) {
     try {
       const results = await prompts({
-        type: 'select',
+        type: 'autocomplete',
         name: 'framework',
-        message: 'Choose a framework',
+        message: logger.blue('Choose a framework (type to filter)'),
         choices: FRAMEWORKS.map((f) => {
-          return { title: f.display, value: f.name }
+          return {
+            title: f.display,
+            value: f.name,
+          }
         }),
         validate: (value) => {
           if (!value) return 'You must choose a framework'
@@ -99,18 +68,26 @@ async function init() {
     }
   }
 
+  // Get framework from defined list
   const framework = FRAMEWORKS.find((f) => f.name === argFramework)
 
   if (!framework) {
-    throw Error('No framework found')
+    logger.error(
+      `No framework found: ${logger.yellow(
+        argFramework
+      )} is not an available framework`
+    )
+    process.exit(1)
   }
 
+  // Ask for project dir if framework requires it
   if (framework.projDir && !argProjectDir) {
     try {
       const results = await prompts({
         type: 'text',
         name: 'project',
-        message: 'Project directory?',
+        initial: `${framework.name}-jam-app`,
+        message: logger.blue('Project directory'),
         validate: (value) => {
           if (!value)
             return `You must defined a project directory for ${framework.display}`
@@ -126,6 +103,7 @@ async function init() {
 
   const { _: commands, ...options } = argv
   const args = commands.length > 1 ? [...commands.slice(1)] : []
+  const type = framework.type
 
   if (args.length === 0 && argProjectDir) args.push(argProjectDir)
 
@@ -141,38 +119,60 @@ async function init() {
     }
   }
 
-  if (framework.type === 'create') {
+  let execCmd: string
+
+  switch (type) {
+    case 'create':
+      execCmd = `npx ${framework.cmd}`
+      break
+
+    case 'cli':
+      execCmd = framework.cmd
+      break
+
+    default:
+      throw Error('No framework command found')
+  }
+
+  // Install CLI package if needed
+  if (type === 'cli' && framework.package) {
+    logger.text()
+    logger.info(
+      `Installing framework package: ${logger.yellow(framework.package)}`
+    )
+    logger.text()
+
+    // TODO: determine package manager used as use that
     try {
-      execa.sync(`node ./dist/frameworks/${framework.name}.js`, args, {
+      execa.sync(`npm install -g ${framework.package}@latest`, {
         shell: true,
         cwd: process.cwd(),
         stdio: 'inherit',
         cleanup: true,
       })
+      logger.text()
+      logger.success('Package installed!')
     } catch (e) {
-      console.error(e)
-      process.exit(1)
+      throw Error(String(e))
     }
-  } else if (framework.type === 'cli') {
-    try {
-      execa.sync(
-        `node ./dist/frameworks/${framework.name}.js`,
-        [framework.cmd!, ...args],
-        {
-          shell: true,
-          cwd: process.cwd(),
-          stdio: 'inherit',
-          cleanup: true,
-        }
-      )
-    } catch (e) {
-      console.error(e)
-      process.exit(1)
-    }
+  }
+
+  try {
+    logger.text()
+    logger.info(`Creating using ${framework.display} CLI...`)
+    logger.text()
+    execa.sync(execCmd, args, {
+      shell: true,
+      cwd: process.cwd(),
+      stdio: 'inherit',
+      cleanup: true,
+    })
+  } catch (e) {
+    throw Error(String(e))
   }
 }
 
 init().catch((e) => {
-  console.error(e)
+  logger.error(e)
   process.exit(1)
 })

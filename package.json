@@ -1,7 +1,7 @@
 {
   "name": "create-jam",
   "description": "Command line interface for quickly spinning up new Jamstack apps",
-  "version": "2.0.0-rc.0",
+  "version": "2.0.0-rc.1",
   "type": "module",
   "repository": {
     "type": "git",
@@ -16,21 +16,26 @@
     "create jam",
     "jamstack",
     "create jamstack app",
+    "angular",
     "astro",
     "blitz",
+    "docsify",
     "docusaurus",
-    "eleventy",
     "gatsby",
+    "gridsome",
     "hexo",
     "nest",
     "next js",
     "nuxt",
     "preact",
+    "quasar",
     "react",
-    "redux",
     "redwood",
     "remix",
-    "vite"
+    "stencil",
+    "sveltekit",
+    "vite",
+    "vuepress"
   ],
   "funding": {
     "type": "github",
@@ -47,46 +52,35 @@
   ],
   "scripts": {
     "dev": "unbuild --stub",
+    "cli": "node index.js",
+    "test": "jest",
     "build": "unbuild",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build",
     "docs:serve": "npx docsify serve ./docs"
   },
-  "dependencies": {
-    "@nestjs/cli": "latest",
-    "blitz": "latest",
-    "create-astro": "latest",
-    "create-docusaurus": "latest",
-    "create-next-app": "latest",
-    "create-nuxt-app": "latest",
-    "create-react-app": "latest",
-    "create-redwood-app": "latest",
-    "create-remix": "latest",
-    "create-vite": "latest",
-    "preact-cli": "latest"
-  },
   "devDependencies": {
-    "@spencerlabs/eslint-config": "^1.0.0",
     "@types/minimist": "^1.2.2",
     "@types/node": "^18.11.17",
     "@types/prompts": "^2.4.4",
+    "@typescript-eslint/eslint-plugin": "^5.58.0",
+    "@typescript-eslint/parser": "^5.58.0",
+    "eslint": "^8.38.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-import-resolver-typescript": "^3.5.5",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jest-dom": "^4.0.3",
+    "eslint-plugin-prettier": "^4.2.1",
     "execa": "5.1.1",
+    "jest": "^29.5.0",
     "kolorist": "^1.7.0",
     "minimist": "^1.2.8",
+    "prettier": "^2.8.7",
     "prompts": "^2.4.2",
     "typescript": "^5.0.2",
     "unbuild": "^1.2.0"
-  },
-  "eslintConfig": {
-    "extends": "@spencerlabs/eslint-config",
-    "root": true,
-    "parserOptions": {
-      "sourceType": "module"
-    },
-    "ignorePatterns": [
-      "templates/**/*",
-      "dist/**/*"
-    ]
   },
   "engines": {
     "node": "^14.18.0 || >=16.0.0"
