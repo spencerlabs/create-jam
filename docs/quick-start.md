@@ -5,16 +5,16 @@ After running one of the below commands you will be led through an interactive i
 <!-- tabs:start -->
 #### **yarn**
 ```bash
-yarn create jam <project-name>
+yarn create jam [framework] [project-name]
 ```
 
 #### **npm**
 ```bash
-npm init jam <project-name>
+npm init jam [framework] [project-name]
 ```
 
 #### **npx**
 ```bash
-npx create-jam <project-name>
+npx create-jam [framework] [project-name]
 ```
 <!-- tabs:end -->
