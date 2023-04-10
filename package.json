@@ -53,6 +53,8 @@
     "docs:serve": "npx docsify serve ./docs"
   },
   "dependencies": {
+    "@nestjs/cli": "latest",
+    "blitz": "latest",
     "create-astro": "latest",
     "create-docusaurus": "latest",
     "create-next-app": "latest",
@@ -60,7 +62,8 @@
     "create-react-app": "latest",
     "create-redwood-app": "latest",
     "create-remix": "latest",
-    "create-vite": "latest"
+    "create-vite": "latest",
+    "preact-cli": "latest"
   },
   "devDependencies": {
     "@spencerlabs/eslint-config": "^1.0.0",

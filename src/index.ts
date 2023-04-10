@@ -1,5 +1,3 @@
-import path from 'node:path'
-
 import execa from 'execa'
 import { cyan, gray, green, yellow } from 'kolorist'
 import minimist from 'minimist'
@@ -20,42 +18,41 @@ type Framework = {
   name: string
   display: string
   type: 'create' | 'cli'
-  cmd: string
+  cmd?: string
   projDir?: boolean
 }
 
 const FRAMEWORKS: Framework[] = [
-  { name: 'astro', display: 'Astro', type: 'create', cmd: 'create-astro' },
+  { name: 'astro', display: 'Astro', type: 'create' },
+  { name: 'blitz', display: 'Blitz', type: 'cli', cmd: 'new' },
   {
     name: 'docusaurus',
     display: 'Docusaurus',
     type: 'create',
-    cmd: 'create-docusaurus',
   },
-  { name: 'next', display: 'Next', type: 'create', cmd: 'create-next-app' },
+  { name: 'nest', display: 'Nest', type: 'cli', cmd: 'new' },
+  { name: 'next', display: 'Next', type: 'create' },
   {
     name: 'nuxt',
     display: 'Nuxt',
     type: 'create',
     projDir: true,
-    cmd: 'create-nuxt-app',
   },
+  { name: 'preact', display: 'Preact', type: 'cli', cmd: 'create' },
   {
     name: 'react',
     display: 'React',
     type: 'create',
     projDir: true,
-    cmd: 'create-react-app',
   },
   {
     name: 'redwood',
     display: 'Redwood',
     type: 'create',
     projDir: true,
-    cmd: 'create-redwood-app',
   },
-  { name: 'remix', display: 'Remix', type: 'create', cmd: 'create-remix' },
-  { name: 'vite', display: 'Vite', type: 'create', cmd: 'create-vite-app' },
+  { name: 'remix', display: 'Remix', type: 'create' },
+  { name: 'vite', display: 'Vite', type: 'create' },
 ]
 
 async function init() {
@@ -127,41 +124,47 @@ async function init() {
     }
   }
 
-  if (framework.type === 'create') {
-    const { _: commands, ...options } = argv
-    const args = commands.length > 1 ? [...commands.slice(1)] : []
+  const { _: commands, ...options } = argv
+  const args = commands.length > 1 ? [...commands.slice(1)] : []
 
-    if (args.length === 0 && argProjectDir) args.push(argProjectDir)
+  if (args.length === 0 && argProjectDir) args.push(argProjectDir)
 
-    for (const [name, value] of Object.entries(options)) {
-      // Allow both long and short form commands, e.g. --name and -n
-      args.push(name.length > 1 ? `--${name}` : `-${name}`)
-      if (typeof value !== 'boolean') {
-        // Make sure options that take multiple quoted words
-        // like `-n "create user"` are passed with quotes.
-        ;(value as string).split(' ').length > 1
-          ? args.push(`"${value}"`)
-          : args.push(value as string)
-      }
+  for (const [name, value] of Object.entries(options)) {
+    // Allow both long and short form commands, e.g. --name and -n
+    args.push(name.length > 1 ? `--${name}` : `-${name}`)
+    if (typeof value !== 'boolean') {
+      // Make sure options that take multiple quoted words
+      // like `-n "create user"` are passed with quotes.
+      ;(value as string).split(' ').length > 1
+        ? args.push(`"${value}"`)
+        : args.push(value as string)
     }
+  }
 
+  if (framework.type === 'create') {
     try {
-      let binPath = path.join(`node_modules/.bin/${framework.cmd}`)
-
-      console.log(process.env.NODE_ENV)
-
-      if (process.env.NODE_ENV === 'production') {
-        const { stdout } = await execa('npm', ['config', 'get', 'prefix'])
-
-        binPath = path.join(stdout, `bin/${framework.cmd}`)
-      }
-
-      execa.sync(`"${binPath}"`, args, {
+      execa.sync(`node ./dist/frameworks/${framework.name}.js`, args, {
         shell: true,
         cwd: process.cwd(),
         stdio: 'inherit',
         cleanup: true,
       })
+    } catch (e) {
+      console.error(e)
+      process.exit(1)
+    }
+  } else if (framework.type === 'cli') {
+    try {
+      execa.sync(
+        `node ./dist/frameworks/${framework.name}.js`,
+        [framework.cmd!, ...args],
+        {
+          shell: true,
+          cwd: process.cwd(),
+          stdio: 'inherit',
+          cleanup: true,
+        }
+      )
     } catch (e) {
       console.error(e)
       process.exit(1)
