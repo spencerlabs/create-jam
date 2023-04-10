@@ -2,6 +2,7 @@
   "name": "create-jam",
   "description": "Command line interface for quickly spinning up new Jamstack apps",
   "version": "2.0.0-rc.0",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/spencerlabs/create-jam"
@@ -35,18 +36,21 @@
     "type": "github",
     "url": "https://github.com/sponsors/spencerlabs"
   },
-  "bin": "./dist/index.js",
+  "bin": {
+    "create-jam": "index.js",
+    "create-jam-app": "index.js"
+  },
   "license": "MIT",
   "files": [
-    "bin",
+    "index.js",
     "dist"
   ],
   "scripts": {
-    "cmd": "ts-node src/index.ts example-app",
-    "cmd:built": "node dist/index.js example-build-app",
-    "docs:serve": "npx docsify serve ./docs",
-    "test": "jest",
-    "build": "rm -rf dist && tsc -p . && mv ./dist/src/* ./dist/"
+    "dev": "unbuild --stub",
+    "build": "unbuild",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build",
+    "docs:serve": "npx docsify serve ./docs"
   },
   "dependencies": {
     "create-astro": "latest",
@@ -56,21 +60,19 @@
     "create-react-app": "latest",
     "create-redwood-app": "latest",
     "create-remix": "latest",
-    "create-vite": "latest",
-    "execa": "5.1.1",
-    "prompts": "^2.4.2",
-    "yargs": "^17.7.1"
+    "create-vite": "latest"
   },
   "devDependencies": {
     "@spencerlabs/eslint-config": "^1.0.0",
-    "@types/jest": "^29.2.6",
+    "@types/minimist": "^1.2.2",
     "@types/node": "^18.11.17",
     "@types/prompts": "^2.4.4",
-    "jest": "^29.3.1",
-    "nodemon": "^2.0.22",
-    "ts-jest": "^29.0.3",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.0.2"
+    "execa": "5.1.1",
+    "kolorist": "^1.7.0",
+    "minimist": "^1.2.8",
+    "prompts": "^2.4.2",
+    "typescript": "^5.0.2",
+    "unbuild": "^1.2.0"
   },
   "eslintConfig": {
     "extends": "@spencerlabs/eslint-config",
@@ -83,10 +85,8 @@
       "dist/**/*"
     ]
   },
-  "nodemonConfig": {
-    "watch": "./src",
-    "exec": "bin/create-jam",
-    "ext": "ts"
+  "engines": {
+    "node": "^14.18.0 || >=16.0.0"
   },
   "packageManager": "yarn@3.3.1"
 }
