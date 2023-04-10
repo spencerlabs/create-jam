@@ -8108,7 +8108,7 @@ __metadata:
     typescript: ^5.0.2
     yargs: ^17.7.1
   bin:
-    create-jam: ./dist/src/cli.js
+    create-jam: ./dist/index.js
   languageName: unknown
   linkType: soft
 
