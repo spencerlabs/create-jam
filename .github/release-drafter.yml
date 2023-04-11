@@ -6,16 +6,12 @@ template: |
 categories:
   - title: ':boom: Breaking Changes'
     label: 'breaking change'
-  - title: ':package: New Templates'
-    label: 'new template'
   - title: ':sparkles: Enhancements'
     label: 'enhancement'
   - title: ':bug: Bug Fixes'
     label: 'bug'
   - title: ':book: Documentation'
     label: 'documentation'
-  - title: ':gear: Template Updates'
-    label: 'template/.+'
 
 version-resolver:
   major:
@@ -23,13 +19,11 @@ version-resolver:
       - 'breaking change'
   minor:
     labels:
-      - 'new template'
       - 'enhancement'
   patch:
     labels:
       - 'bug'
       - 'documentation'
-      - 'template/.+'
 
 exclude-labels:
   - 'skip changelog'
