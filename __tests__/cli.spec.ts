@@ -1,8 +1,8 @@
-import fs from 'node:fs'
 import { join } from 'node:path'
 
 import execa from 'execa'
 import type { ExecaSyncReturnValue, SyncOptions } from 'execa'
+import fs from 'fs-extra'
 
 const CLI_PATH = join(__dirname, '..')
 
@@ -13,11 +13,11 @@ const run = (
   args: string[],
   options: SyncOptions = {}
 ): ExecaSyncReturnValue => {
-  return execa.sync(`node ${CLI_PATH} ${args.join(' ')}`, options)
+  return execa.commandSync(`node ${CLI_PATH} ${args.join(' ')}`, options)
 }
 
-beforeAll(() => fs.rmSync(genPath, { recursive: true }))
-afterEach(() => fs.rmSync(genPath, { recursive: true }))
+beforeAll(() => fs.remove(genPath))
+afterEach(() => fs.remove(genPath))
 
 test('prompts for the framework if none supplied', () => {
   const { stdout } = run([])

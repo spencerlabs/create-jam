@@ -11,6 +11,59 @@
   "bugs": {
     "url": "https://github.com/spencerlabs/create-jam/issues"
   },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/spencerlabs"
+  },
+  "bin": {
+    "create-jam": "index.js",
+    "create-jam-app": "index.js"
+  },
+  "license": "MIT",
+  "files": [
+    "index.js",
+    "dist"
+  ],
+  "scripts": {
+    "dev": "unbuild --stub",
+    "cli": "node index.js",
+    "test": "jest",
+    "build": "unbuild",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build",
+    "docs": "docsify serve docs"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.1",
+    "@types/jest": "^29.5.0",
+    "@types/minimist": "^1.2.2",
+    "@types/node": "^18.11.17",
+    "@types/prompts": "^2.4.4",
+    "@typescript-eslint/eslint-plugin": "^5.58.0",
+    "@typescript-eslint/parser": "^5.58.0",
+    "docsify-cli": "^4.4.4",
+    "eslint": "^8.38.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-import-resolver-typescript": "^3.5.5",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jest-dom": "^4.0.3",
+    "eslint-plugin-prettier": "^4.2.1",
+    "execa": "5.1.1",
+    "fs-extra": "^11.1.1",
+    "jest": "^29.5.0",
+    "kolorist": "^1.7.0",
+    "minimist": "^1.2.8",
+    "prettier": "^2.8.7",
+    "prompts": "^2.4.2",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.2",
+    "unbuild": "^1.2.0"
+  },
+  "engines": {
+    "node": "^14.18.0 || >=16.0.0"
+  },
   "keywords": [
     "jam",
     "create jam",
@@ -37,56 +90,5 @@
     "vite",
     "vuepress"
   ],
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/spencerlabs"
-  },
-  "bin": {
-    "create-jam": "index.js",
-    "create-jam-app": "index.js"
-  },
-  "license": "MIT",
-  "files": [
-    "index.js",
-    "dist"
-  ],
-  "scripts": {
-    "dev": "unbuild --stub",
-    "cli": "node index.js",
-    "test": "jest",
-    "build": "unbuild",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
-    "typecheck": "tsc --noEmit",
-    "prepublishOnly": "npm run build",
-    "docs": "docsify serve docs"
-  },
-  "devDependencies": {
-    "@types/jest": "^29.5.0",
-    "@types/minimist": "^1.2.2",
-    "@types/node": "^18.11.17",
-    "@types/prompts": "^2.4.4",
-    "@typescript-eslint/eslint-plugin": "^5.58.0",
-    "@typescript-eslint/parser": "^5.58.0",
-    "docsify-cli": "^4.4.4",
-    "eslint": "^8.38.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-import-resolver-typescript": "^3.5.5",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-jest-dom": "^4.0.3",
-    "eslint-plugin-prettier": "^4.2.1",
-    "execa": "5.1.1",
-    "jest": "^29.5.0",
-    "kolorist": "^1.7.0",
-    "minimist": "^1.2.8",
-    "prettier": "^2.8.7",
-    "prompts": "^2.4.2",
-    "ts-jest": "^29.1.0",
-    "typescript": "^5.0.2",
-    "unbuild": "^1.2.0"
-  },
-  "engines": {
-    "node": "^14.18.0 || >=16.0.0"
-  },
   "packageManager": "yarn@3.3.1"
 }
