@@ -23,3 +23,8 @@ test('prompts for the framework if none supplied', () => {
   const { stdout } = run([])
   expect(stdout).toContain('Choose a framework')
 })
+
+test('prompts for the project directory if needed', () => {
+  const { stdout } = run(['react'])
+  expect(stdout).toContain('Project directory')
+})
