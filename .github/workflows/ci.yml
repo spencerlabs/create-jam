@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - run: yarn
+    - name: Install packages
+      run: yarn
+    - name: Build CLI
+      run: yarn build
     - name: Run tests
       run: yarn test
