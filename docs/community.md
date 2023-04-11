@@ -2,7 +2,7 @@
 
 ## Contributing
 
-`create-jam` wraps the CLIs of the most popular JAMstack frameworks.
+`create-jam` wraps the CLIs of the most popular Jamstack frameworks.
 This let's you create any of these apps from a single CLI.
 
 ### Local Development
