@@ -2,10 +2,43 @@
 
 ## Contributing
 
-`create-jam` uses GitHub actions to check and pull changes from the respective app templates. Each app (React, Redwood, etc.) has it's own action which calls the core [`create-app` action](https://github.com/spencerlabs/create-jam/blob/next/.github/workflows/create-app.yml).
+`create-jam` wraps the CLIs of the most popular JAMstack frameworks.
+This let's you create any of these apps from a single CLI.
 
-The best way to test these actions for yourself is to [fork the repo](https://github.com/spencerlabs/create-jam/fork) and make modifications. You could also add your own action for a new framework and test it before [opening a pull request](https://github.com/spencerlabs/create-jam/compare).
+### Local Development
+
+To start, pull down the repo and install dependencies:
+
+```bash
+yarn install
+```
+
+Next, run the dev script to create a stub to run the CLI with the local files:
+
+```bash
+yarn dev
+```
+
+Finally, run the CLI:
+
+```bash
+yarn cli
+```
+
+### Testing
+
+If you are modifying the code or adding a new framework, make sure to add or edit corresponding tests in the `__tests__` directory.
+
+As a final test, build the app and run the CLI against a built version of the code:
+
+```bash
+yarn build
+```
+
+```bash
+yarn cli
+```
 
 ## New Frameworks
 
-Head to our [ideas discussions](https://github.com/spencerlabs/create-jam/discussions/categories/ideas) to comment on other people's framework suggestions or, if you don't see one you want, start your own framework discussion.
+Head to our [ideas discussions](https://github.com/spencerlabs/create-jam/discussions/categories/ideas) to suggest a framework or [open a PR](https://github.com/spencerlabs/create-jam/pulls) with the new framework.
