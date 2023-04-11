@@ -6,15 +6,16 @@ export default {
   blue,
   cyan,
   error: (str: string | number) =>
-    console.error(red(`[ERROR] (${name}) ${str}`)),
+    console.error(red(`${gray(name)} [ERROR] ${str}`)),
   gray,
   green,
-  info: (str: string | number) => console.info(cyan(`[INFO] (${name}) ${str}`)),
+  info: (str: string | number) =>
+    console.info(cyan(`${gray(name)} [INFO] ${str}`)),
   red,
   success: (str: string | number) =>
-    console.log(green(`[SUCCESS] (${name}) ${str}`)),
+    console.log(green(`${gray(name)} [SUCCESS] ${str}`)),
   text: (str?: string | number) => console.log(gray(str || '')),
   warn: (str: string | number) =>
-    console.warn(yellow(`[WARN] (${name}) ${str}`)),
+    console.warn(yellow(`${gray(name)} [WARN] ${str}`)),
   yellow,
 }
