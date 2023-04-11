@@ -1,7 +1,6 @@
 - [Introduction](/)
 - [Quick Start](quick-start.md)
-- [CLI](cli.md)
-- [Programmatic](programmatic.md)
+- [Usage](usage.md)
 - [Frameworks](frameworks.md)
 - [Community](community.md)
 **Links**

@@ -12,5 +12,4 @@ example-build-app
 !.yarn/versions
 yarn-error.log
 
-!templates/*
 *.tgz
