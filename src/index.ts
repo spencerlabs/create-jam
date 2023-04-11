@@ -90,7 +90,7 @@ async function init() {
         message: logger.blue('Project directory'),
         validate: (value) => {
           if (!value)
-            return `You must defined a project directory for ${framework.display}`
+            return `You must define a project directory for ${framework.display}`
           return true
         },
       })
@@ -107,6 +107,7 @@ async function init() {
 
   if (args.length === 0 && argProjectDir) args.push(argProjectDir)
 
+  // Create an array of passed commands
   for (const [name, value] of Object.entries(options)) {
     // Allow both long and short form commands, e.g. --name and -n
     args.push(name.length > 1 ? `--${name}` : `-${name}`)
@@ -119,21 +120,6 @@ async function init() {
     }
   }
 
-  let execCmd: string
-
-  switch (type) {
-    case 'create':
-      execCmd = `npx ${framework.cmd}`
-      break
-
-    case 'cli':
-      execCmd = framework.cmd
-      break
-
-    default:
-      throw Error('No framework command found')
-  }
-
   // Install CLI package if needed
   if (type === 'cli' && framework.package) {
     logger.text()
@@ -142,7 +128,7 @@ async function init() {
     )
     logger.text()
 
-    // TODO: determine package manager used as use that
+    // TODO: determine package manager used and use that
     try {
       execa.sync(`npm install -g ${framework.package}@latest`, {
         shell: true,
@@ -150,6 +136,7 @@ async function init() {
         stdio: 'inherit',
         cleanup: true,
       })
+
       logger.text()
       logger.success('Package installed!')
     } catch (e) {
@@ -157,16 +144,21 @@ async function init() {
     }
   }
 
+  logger.text()
+  logger.info(`Creating using ${framework.display} CLI...`)
+  logger.text()
+
   try {
-    logger.text()
-    logger.info(`Creating using ${framework.display} CLI...`)
-    logger.text()
-    execa.sync(execCmd, args, {
-      shell: true,
-      cwd: process.cwd(),
-      stdio: 'inherit',
-      cleanup: true,
-    })
+    execa.sync(
+      type === 'create' ? `npx ${framework.cmd}` : framework.cmd,
+      args,
+      {
+        shell: true,
+        cwd: process.cwd(),
+        stdio: 'inherit',
+        cleanup: true,
+      }
+    )
   } catch (e) {
     throw Error(String(e))
   }
