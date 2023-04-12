@@ -72,12 +72,11 @@ async function init() {
   const framework = FRAMEWORKS.find((f) => f.name === argFramework)
 
   if (!framework) {
-    logger.error(
+    throw Error(
       `No framework found: ${logger.yellow(
         argFramework
       )} is not an available framework`
     )
-    process.exit(1)
   }
 
   // Ask for project dir if framework requires it
@@ -103,7 +102,6 @@ async function init() {
 
   const { _: commands, ...options } = argv
   const args = commands.length > 1 ? [...commands.slice(1)] : []
-  const type = framework.type
 
   if (args.length === 0 && argProjectDir) args.push(argProjectDir)
 
@@ -121,7 +119,7 @@ async function init() {
   }
 
   // Install CLI package if needed
-  if (type === 'cli' && framework.package) {
+  if (framework.package) {
     logger.text()
     logger.info(
       `Installing framework package: ${logger.yellow(framework.package)}`
@@ -149,16 +147,12 @@ async function init() {
   logger.text()
 
   try {
-    execaSync(
-      type === 'create' ? `npx ${framework.cmd}` : framework.cmd,
-      args,
-      {
-        shell: true,
-        cwd: process.cwd(),
-        stdio: 'inherit',
-        cleanup: true,
-      }
-    )
+    execaSync(framework.cmd, args, {
+      shell: true,
+      cwd: process.cwd(),
+      stdio: 'inherit',
+      cleanup: true,
+    })
   } catch (e) {
     throw Error(String(e))
   }

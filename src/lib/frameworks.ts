@@ -1,53 +1,38 @@
-type FrameworkBase = {
+export const FRAMEWORKS: {
   name: string
   display: string
   cmd: string
+  package?: string
   projDir?: boolean
-}
-
-interface CreateFramework extends FrameworkBase {
-  type: 'create'
-}
-
-interface CLIFramework extends FrameworkBase {
-  type: 'cli'
-  package: string
-}
-
-export const FRAMEWORKS: (CreateFramework | CLIFramework)[] = [
+}[] = [
   {
     name: 'angular',
     display: 'Angular',
-    type: 'cli',
     package: '@angular/cli',
     cmd: 'ng new',
   },
-  { name: 'astro', display: 'Astro', type: 'create', cmd: 'create-astro' },
+  { name: 'astro', display: 'Astro', cmd: 'npx create-astro' },
   {
     name: 'blitz',
     display: 'Blitz',
-    type: 'cli',
     package: 'blitz',
     cmd: 'blitz new',
   },
   {
     name: 'docsify',
     display: 'Docsify',
-    type: 'cli',
     package: 'docsify-cli',
     cmd: 'docsify init ./docs',
   },
   {
     name: 'docusaurus',
     display: 'Docusaurus',
-    type: 'create',
-    cmd: 'create-docusaurus',
+    cmd: 'npx create-docusaurus',
   },
-  { name: 'gatsby', display: 'Gatsby', type: 'create', cmd: 'create-gatsby' },
+  { name: 'gatsby', display: 'Gatsby', cmd: 'npx create-gatsby' },
   {
     name: 'gridsome',
     display: 'Gridsome',
-    type: 'cli',
     package: '@gridsome/cli',
     cmd: 'gridsome create',
     projDir: true,
@@ -55,7 +40,6 @@ export const FRAMEWORKS: (CreateFramework | CLIFramework)[] = [
   {
     name: 'hexo',
     display: 'Hexo',
-    type: 'cli',
     package: 'hexo-cli',
     cmd: 'hexo init',
     projDir: true,
@@ -63,62 +47,53 @@ export const FRAMEWORKS: (CreateFramework | CLIFramework)[] = [
   {
     name: 'nest',
     display: 'Nest',
-    type: 'cli',
     package: '@nestjs/cli',
     cmd: 'nest new',
   },
-  { name: 'next', display: 'Next', type: 'create', cmd: 'create-next-app' },
+  { name: 'next', display: 'Next', cmd: 'npx create-next-app' },
   {
     name: 'nuxt',
     display: 'Nuxt',
-    type: 'create',
-    cmd: 'create-nuxt-app',
+    cmd: 'npx create-nuxt-app',
     projDir: true,
   },
   {
     name: 'preact',
     display: 'Preact',
-    type: 'create',
-    cmd: 'preact-cli create',
+    cmd: 'npx preact-cli create',
   },
   {
     name: 'quasar',
     display: 'Quasar',
-    type: 'create',
-    cmd: 'create-quasar',
+    cmd: 'npx create-quasar',
   },
   {
     name: 'react',
     display: 'React',
-    type: 'create',
-    cmd: 'create-react-app',
+    cmd: 'npx create-react-app',
     projDir: true,
   },
   {
     name: 'redwood',
     display: 'Redwood',
-    type: 'create',
-    cmd: 'create-redwood-app',
+    cmd: 'npx create-redwood-app',
     projDir: true,
   },
-  { name: 'remix', display: 'Remix', type: 'create', cmd: 'create-remix' },
+  { name: 'remix', display: 'Remix', cmd: 'npx create-remix' },
   {
     name: 'stencil',
     display: 'Stencil',
-    type: 'create',
-    cmd: 'create-stencil',
+    cmd: 'npx create-stencil',
   },
   {
     name: 'sveltekit',
     display: 'SvelteKit',
-    type: 'create',
-    cmd: 'create-svelte',
+    cmd: 'npx create-svelte',
   },
-  { name: 'vite', display: 'Vite', type: 'create', cmd: 'create-vite' },
+  { name: 'vite', display: 'Vite', cmd: 'npx create-vite' },
   {
     name: 'vuepress',
     display: 'VuePress',
-    type: 'create',
-    cmd: 'create-vuepress-site',
+    cmd: 'npx create-vuepress-site',
   },
 ]
