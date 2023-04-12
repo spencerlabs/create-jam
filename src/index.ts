@@ -1,4 +1,4 @@
-import execa from 'execa'
+import { execaSync } from 'execa'
 import minimist from 'minimist'
 import prompts from 'prompts'
 
@@ -130,7 +130,7 @@ async function init() {
 
     // TODO: determine package manager used and use that
     try {
-      execa.sync(`npm install -g ${framework.package}@latest`, {
+      execaSync(`npm install -g ${framework.package}@latest`, {
         shell: true,
         cwd: process.cwd(),
         stdio: 'inherit',
@@ -149,7 +149,7 @@ async function init() {
   logger.text()
 
   try {
-    execa.sync(
+    execaSync(
       type === 'create' ? `npx ${framework.cmd}` : framework.cmd,
       args,
       {

@@ -1,19 +1,23 @@
-import { join } from 'node:path'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
-import execa from 'execa'
 import type { ExecaSyncReturnValue, SyncOptions } from 'execa'
+import { execaCommandSync } from 'execa'
 import fs from 'fs-extra'
 
-const CLI_PATH = join(__dirname, '..')
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+const CLI_PATH = path.join(__dirname, '..')
 
 const projectName = 'test-app'
-const genPath = join(__dirname, projectName)
+const genPath = path.join(__dirname, projectName)
 
 const run = (
   args: string[],
   options: SyncOptions = {}
 ): ExecaSyncReturnValue => {
-  return execa.commandSync(`node ${CLI_PATH} ${args.join(' ')}`, options)
+  return execaCommandSync(`node ${CLI_PATH} ${args.join(' ')}`, options)
 }
 
 beforeAll(() => fs.remove(genPath))

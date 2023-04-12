@@ -1,13 +1,20 @@
-type Framework = {
+type FrameworkBase = {
   name: string
   display: string
-  type: 'create' | 'cli'
-  package?: string
   cmd: string
   projDir?: boolean
 }
 
-export const FRAMEWORKS: Framework[] = [
+interface CreateFramework extends FrameworkBase {
+  type: 'create'
+}
+
+interface CLIFramework extends FrameworkBase {
+  type: 'cli'
+  package: string
+}
+
+export const FRAMEWORKS: (CreateFramework | CLIFramework)[] = [
   {
     name: 'angular',
     display: 'Angular',
