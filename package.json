@@ -33,17 +33,16 @@
     "lint:fix": "eslint --fix .",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build",
-    "docs": "docsify serve docs"
+    "docs": "npx docsify-cli serve docs"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.1",
     "@types/jest": "^29.5.0",
     "@types/minimist": "^1.2.2",
-    "@types/node": "^18.11.17",
+    "@types/node": "^18.15.11",
     "@types/prompts": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "^5.58.0",
     "@typescript-eslint/parser": "^5.58.0",
-    "docsify-cli": "^4.4.4",
     "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-import-resolver-typescript": "^3.5.5",
@@ -58,7 +57,7 @@
     "prettier": "^2.8.7",
     "prompts": "^2.4.2",
     "ts-jest": "^29.1.0",
-    "typescript": "^5.0.2",
+    "typescript": "^5.0.4",
     "unbuild": "^1.2.0"
   },
   "engines": {
