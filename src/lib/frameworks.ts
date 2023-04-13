@@ -1,99 +1,100 @@
 export const FRAMEWORKS: {
-  name: string
-  display: string
-  cmd: string
-  package?: string
-  projDir?: boolean
-}[] = [
-  {
-    name: 'angular',
-    display: 'Angular',
-    package: '@angular/cli',
+  [x: string]: {
+    name: string
+    cmd: string
+    pkg?: string
+    dir?: boolean
+  }
+} = {
+  angular: {
+    name: 'Angular',
+    pkg: '@angular/cli',
     cmd: 'ng new',
   },
-  { name: 'astro', display: 'Astro', cmd: 'npx create-astro' },
-  {
-    name: 'blitz',
-    display: 'Blitz',
-    package: 'blitz',
+  astro: {
+    name: 'Astro',
+    cmd: 'npx create-astro',
+  },
+  blitz: {
+    name: 'Blitz',
+    pkg: 'blitz',
     cmd: 'blitz new',
   },
-  {
-    name: 'docsify',
-    display: 'Docsify',
-    package: 'docsify-cli',
+  docsify: {
+    name: 'Docsify',
+    pkg: 'docsify-cli',
     cmd: 'docsify init ./docs',
   },
-  {
-    name: 'docusaurus',
-    display: 'Docusaurus',
+  docusaurus: {
+    name: 'Docusaurus',
     cmd: 'npx create-docusaurus',
   },
-  { name: 'gatsby', display: 'Gatsby', cmd: 'npx create-gatsby' },
-  {
-    name: 'gridsome',
-    display: 'Gridsome',
-    package: '@gridsome/cli',
+  gatsby: {
+    name: 'Gatsby',
+    cmd: 'npx create-gatsby',
+  },
+  gridsome: {
+    name: 'Gridsome',
+    pkg: '@gridsome/cli',
     cmd: 'gridsome create',
-    projDir: true,
+    dir: true,
   },
-  {
-    name: 'hexo',
-    display: 'Hexo',
-    package: 'hexo-cli',
+  hexo: {
+    name: 'Hexo',
+    pkg: 'hexo-cli',
     cmd: 'hexo init',
-    projDir: true,
+    dir: true,
   },
-  {
-    name: 'nest',
-    display: 'Nest',
-    package: '@nestjs/cli',
+  nest: {
+    name: 'Nest',
+    pkg: '@nestjs/cli',
     cmd: 'nest new',
   },
-  { name: 'next', display: 'Next', cmd: 'npx create-next-app' },
-  {
-    name: 'nuxt',
-    display: 'Nuxt',
-    cmd: 'npx create-nuxt-app',
-    projDir: true,
+  next: {
+    name: 'Next',
+    cmd: 'npx create-next-app',
   },
-  {
-    name: 'preact',
-    display: 'Preact',
+  nuxt: {
+    name: 'Nuxt',
+    cmd: 'npx create-nuxt-app',
+    dir: true,
+  },
+  preact: {
+    name: 'Preact',
     cmd: 'npx preact-cli create',
   },
-  {
-    name: 'quasar',
-    display: 'Quasar',
+  quasar: {
+    name: 'Quasar',
     cmd: 'npx create-quasar',
   },
-  {
-    name: 'react',
-    display: 'React',
+  react: {
+    name: 'React',
     cmd: 'npx create-react-app',
-    projDir: true,
+    dir: true,
   },
-  {
-    name: 'redwood',
-    display: 'Redwood',
+  redwood: {
+    name: 'Redwood',
     cmd: 'npx create-redwood-app',
-    projDir: true,
+    dir: true,
   },
-  { name: 'remix', display: 'Remix', cmd: 'npx create-remix' },
-  {
-    name: 'stencil',
-    display: 'Stencil',
+  remix: {
+    name: 'Remix',
+    cmd: 'npx create-remix',
+  },
+  stencil: {
+    name: 'Stencil',
     cmd: 'npx create-stencil',
   },
-  {
-    name: 'sveltekit',
-    display: 'SvelteKit',
+  sveltekit: {
+    name: 'SvelteKit',
     cmd: 'npx create-svelte',
   },
-  { name: 'vite', display: 'Vite', cmd: 'npx create-vite' },
-  {
-    name: 'vuepress',
-    display: 'VuePress',
+  vite: {
+    name: 'Vite',
+    cmd: 'npx create-vite',
+  },
+  vuepress: {
+    name: 'VuePress',
     cmd: 'npx create-vuepress-site',
   },
-]
+}

@@ -34,76 +34,72 @@ async function init() {
     )
     logger.text()
     logger.text('  Available frameworks:')
-    FRAMEWORKS.forEach((f) => {
-      logger.green(`  ${f.name}`)
+    Object.keys(FRAMEWORKS).forEach((f) => {
+      logger.green(`  ${f}`)
     })
     process.exit(0)
   }
 
-  let argFramework = argv._[0]
-  let argProjectDir = argv._[1]
+  const getFramework = (name: string) => {
+    const found = FRAMEWORKS[name]
 
-  // Allow user to choose a framework
-  if (!argFramework) {
-    try {
-      const results = await prompts({
-        type: 'autocomplete',
+    if (!found) {
+      logger.warn(`No framework found: '${name}' is not an available framework`)
+    }
+
+    return found
+  }
+
+  let framework = argv._[0] ? getFramework(argv._[0]) : undefined
+
+  const response = await prompts(
+    [
+      {
+        type: !framework ? 'autocomplete' : null,
         name: 'framework',
         message: logger.blue('Choose a framework (type to filter)'),
-        choices: FRAMEWORKS.map((f) => {
+        choices: Object.keys(FRAMEWORKS).map((f) => {
           return {
-            title: f.display,
-            value: f.name,
+            title: FRAMEWORKS[f].name,
+            value: f,
           }
         }),
         validate: (value) => {
           if (!value) return 'You must choose a framework'
           return true
         },
-      })
-
-      argFramework = results.framework
-    } catch (e) {
-      throw Error(String(e))
-    }
-  }
-
-  // Get framework from defined list
-  const framework = FRAMEWORKS.find((f) => f.name === argFramework)
-
-  if (!framework) {
-    throw Error(
-      `No framework found: ${logger.yellow(
-        argFramework
-      )} is not an available framework`
-    )
-  }
-
-  // Ask for project dir if framework requires it
-  if (framework.projDir && !argProjectDir) {
-    try {
-      const results = await prompts({
-        type: 'text',
+      },
+      {
+        type: () => (framework?.dir ? 'text' : null),
         name: 'project',
-        initial: `${framework.name}-jam-app`,
+        initial: (prev) => `${prev || argv._[0]}-jam-app`,
         message: logger.blue('Project directory'),
         validate: (value) => {
-          if (!value)
-            return `You must define a project directory for ${framework.display}`
+          if (!value) {
+            return `You must define a project directory for this framework`
+          }
           return true
         },
-      })
-
-      argProjectDir = results.project
-    } catch (e) {
-      throw Error(String(e))
+      },
+    ],
+    {
+      onSubmit: (prompt, answer) => {
+        if (prompt.name === 'framework') {
+          framework = getFramework(answer)
+        }
+      },
+      onCancel: (prompt) => {
+        throw Error(`You must provide the '${prompt.name}'`)
+      },
     }
-  }
+  )
+
+  if (!framework) throw Error('No framework found!')
 
   const { _: commands, ...options } = argv
   const args = commands.length > 1 ? [...commands.slice(1)] : []
 
-  if (args.length === 0 && argProjectDir) args.push(argProjectDir)
+  if (args.length === 0 && response.project) args.push(response.project)
 
   // Create an array of passed commands
   for (const [name, value] of Object.entries(options)) {
@@ -119,43 +115,33 @@ async function init() {
   }
 
   // Install CLI package if needed
-  if (framework.package) {
+  if (framework.pkg) {
     logger.text()
-    logger.info(
-      `Installing framework package: ${logger.yellow(framework.package)}`
-    )
+    logger.info(`Installing framework package: ${logger.yellow(framework.pkg)}`)
     logger.text()
 
     // TODO: determine package manager used and use that
-    try {
-      execaSync(`npm install -g ${framework.package}@latest`, {
-        shell: true,
-        cwd: process.cwd(),
-        stdio: 'inherit',
-        cleanup: true,
-      })
-
-      logger.text()
-      logger.success('Package installed!')
-    } catch (e) {
-      throw Error(String(e))
-    }
-  }
-
-  logger.text()
-  logger.info(`Creating using ${framework.display} CLI...`)
-  logger.text()
-
-  try {
-    execaSync(framework.cmd, args, {
+    execaSync(`npm install -g ${framework.pkg}@latest`, {
       shell: true,
       cwd: process.cwd(),
       stdio: 'inherit',
       cleanup: true,
     })
-  } catch (e) {
-    throw Error(String(e))
+
+    logger.text()
+    logger.success('Package installed!')
   }
+
+  logger.text()
+  logger.info(`Starting ${framework.name} CLI...`)
+  logger.text()
+
+  execaSync(framework.cmd, args, {
+    shell: true,
+    cwd: process.cwd(),
+    stdio: 'inherit',
+    cleanup: true,
+  })
 }
 
 init().catch((e) => {

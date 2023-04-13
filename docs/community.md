@@ -22,7 +22,7 @@ yarn dev
 Finally, run the CLI:
 
 ```bash
-yarn cli
+yarn jam
 ```
 
 ### Testing
@@ -36,7 +36,7 @@ yarn build
 ```
 
 ```bash
-yarn cli
+yarn jam
 ```
 
 ## New Frameworks

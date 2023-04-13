@@ -32,3 +32,8 @@ test('prompts for the project directory if needed', () => {
   const { stdout } = run(['react'])
   expect(stdout).toContain('Project directory')
 })
+
+test('warns of invalid framework type', () => {
+  const { stderr } = run(['wrong'])
+  expect(stderr).toContain('No framework found:')
+})
