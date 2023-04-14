@@ -1,319 +1,386 @@
 # Supported Frameworks
 
-
-
 > **Disclaimer**
 >
-> We do not claim ownership over any of the templates and their code used in this CLI.
+> We do not claim ownership over any of the code generated or the wrapped CLIs utilized in this CLI.
 > Each is owned by the respective company.
->
->Due to the nature of wrapping other CLIs, some features of those CLIs are not available through `create-jam` while others are pre-configured and opinionated.
 
-## Astro
-
-**Website**: [astro.build](https://astro.build/)
-
-**ID**: `astro`
-
-**Templates**:
-
-- `basics`
-- `blog`
-- `minimal`
-
-**Changelog**:
-
-| Version                                                                   | Details                         |
-| ------------------------------------------------------------------------- | ------------------------------- |
-| [`v1.1.0`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.0) | Added templates to `create-jam` |
-
-## Blitz
-
-**Website**: [blitzjs.com](https://blitzjs.com/)
-
-**ID**: `blitz`
-
-**Templates**:
-
-- `full`
-- `full-ts`
-- `minimal`
-- `minimal-ts`
-
-**Default Configurations**:
-
-| Flag     | Value       |
-| -------- | ----------- |
-| `--form` | `finalform` |
-
-**Changelog**:
-
-| Version                                                                   | Details                         |
-| ------------------------------------------------------------------------- | ------------------------------- |
-| [`v1.1.4`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.4) | Pulled latest updates           |
-| [`v1.1.3`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.3) | Pulled latest updates           |
-| [`v1.1.0`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.0) | Added templates to `create-jam` |
-
-## Docusaurus
-
-**Website**: [docusaurus.io](https://docusaurus.io/)
-
-**ID**: `docusaurus`
-
-**Templates**:
-
-- `javascript`
-- `typescript`
-
-**Changelog**:
-
-| Version                                                                   | Details                         |
-| ------------------------------------------------------------------------- | ------------------------------- |
-| [`v0.1.0`](https://github.com/spencerlabs/create-jam/releases/tag/v0.1.0) | Added templates to `create-jam` |
-
-## Eleventy
-
-**Website**: [11ty.dev](https://www.11ty.dev/)
-
-**ID**: `eleventy`
-
-**Changelog**:
-
-| Version                                                                   | Details                         |
-| ------------------------------------------------------------------------- | ------------------------------- |
-| [`v0.3.0`](https://github.com/spencerlabs/create-jam/releases/tag/v0.3.0) | Added templates to `create-jam` |
-
-## Gatsby
-
-**Website**: [gatsbyjs.com](https://www.gatsbyjs.com/)
-
-**ID**: `gatsby`
-
-**Templates**:
-
-- `javascript`
-- `typescript`
-
-**Changelog**:
-
-| Version                                                                   | Details                         |
-| ------------------------------------------------------------------------- | ------------------------------- |
-| [`v1.1.5`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.5) | Pulled latest updates           |
-| [`v1.1.4`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.4) | Pulled latest updates           |
-| [`v1.1.3`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.3) | Pulled latest updates           |
-| [`v0.6.0`](https://github.com/spencerlabs/create-jam/releases/tag/v0.6.0) | Pulled latest updates           |
-| [`v0.3.0`](https://github.com/spencerlabs/create-jam/releases/tag/v0.3.0) | Added templates to `create-jam` |
-
-## Hexo
-
-**Website**: [hexo.io](https://hexo.io/)
-
-**ID**: `hexo`
-
-**Changelog**:
-
-| Version                                                                   | Details                         |
-| ------------------------------------------------------------------------- | ------------------------------- |
-| [`v0.3.0`](https://github.com/spencerlabs/create-jam/releases/tag/v0.3.0) | Added templates to `create-jam` |
-
-## Nest
-
-**Website**: [nestjs.com](https://nestjs.com/)
-
-**ID**: `nest`
-
-**Templates**:
-
-- `javascript`
-- `typescript`
-
-**Default Configurations**:
-
-| Flag                                    | Value |
-| --------------------------------------- | ----- |
-| `--strict` (`typescript` template only) |       |
-
-**Changelog**:
-
-| Version                                                                   | Details                         |
-| ------------------------------------------------------------------------- | ------------------------------- |
-| [`v1.1.0`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.0) | Added templates to `create-jam` |
-
-## Next.js
-
-**Website**: [nextjs.org](https://nextjs.org/)
-
-**ID**: `next`
-
-**Templates**:
-
-- `javascript`
-- `typescript`
-
-**Default Configurations**:
-
-| Flag                 | Value |
-| -------------------- | ----- |
-| `--eslint`           |       |
-| `--experimental-app` |       |
-| `--src-dir`          |       |
-
-**Changelog**:
-
-| Version                                                                   | Details                         |
-| ------------------------------------------------------------------------- | ------------------------------- |
-| [`v1.1.6`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.5) | Pulled latest updates           |
-| [`v1.1.5`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.5) | Pulled latest updates           |
-| [`v0.3.0`](https://github.com/spencerlabs/create-jam/releases/tag/v0.3.0) | Pulled latest updates           |
-| [`v0.1.0`](https://github.com/spencerlabs/create-jam/releases/tag/v0.1.0) | Added templates to `create-jam` |
-
-## Nuxt
-
-**Website**: [nuxt.com](https://nuxt.com/)
-
-**ID**: `nuxt`
-
-**Changelog**:
-
-| Version                                                                   | Details                         |
-| ------------------------------------------------------------------------- | ------------------------------- |
-| [`v1.1.4`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.4) | Pulled latest updates           |
-| [`v0.3.0`](https://github.com/spencerlabs/create-jam/releases/tag/v0.3.0) | Added templates to `create-jam` |
-
-## Preact
-
-**Website**: [preactjs.com](https://preactjs.com/)
-
-**ID**: `preact`
-
-**Templates**:
-
-- `default`
-- `netlify`
-- `simple`
-- `typescript`
-
-**Changelog**:
-
-| Version                                                                   | Details                         |
-| ------------------------------------------------------------------------- | ------------------------------- |
-| [`v1.1.5`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.5) | Pulled latest updates           |
-| [`v1.1.2`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.2) | Pulled latest updates           |
-| [`v0.3.0`](https://github.com/spencerlabs/create-jam/releases/tag/v0.3.0) | Added templates to `create-jam` |
-
-## React
-
-**Website**: [create-react-app.dev](https://create-react-app.dev/)
-
-**ID**: `react`
-
-**Templates**:
-
-- `javascript`
-- `typescript`
-
-**Changelog**:
-
-| Version                                                                   | Details                         |
-| ------------------------------------------------------------------------- | ------------------------------- |
-| [`v1.1.5`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.5) | Pulled latest updates           |
-| [`v0.1.0`](https://github.com/spencerlabs/create-jam/releases/tag/v0.1.0) | Added templates to `create-jam` |
-
-## Redux
-
-**Website**: [redux.js.org](https://redux.js.org/)
-
-**ID**: `redux`
-
-**Templates**:
-
-- `javascript`
-- `typescript`
-
-**Changelog**:
-
-| Version                                                                   | Details                         |
-| ------------------------------------------------------------------------- | ------------------------------- |
-| [`v1.1.5`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.5) | Pulled latest updates           |
-| [`v0.4.0`](https://github.com/spencerlabs/create-jam/releases/tag/v0.4.0) | Added templates to `create-jam` |
-
-## Redwood
-
-**Website**: [redwoodjs.com](https://redwoodjs.com/)
-
-**ID**: `redwood`
-
-**Templates**:
-
-- `javascript`
-- `typescript`
-
-**Changelog**:
-
-| Version                                                                   | Details                         |
-| ------------------------------------------------------------------------- | ------------------------------- |
-| [`v0.1.0`](https://github.com/spencerlabs/create-jam/releases/tag/v0.1.0) | Added templates to `create-jam` |
-
-## Remix
-
-**Website**: [remix.run](https://remix.run/)
-
-**ID**: `remix`
-
-**Templates**:
-
-- `arc`
-- `arc-ts`
-- `cloudflare-pages`
-- `cloudflare-pages-ts`
-- `cloudflare-workers`
-- `cloudflare-workers-ts`
-- `deno`
-- `deno-ts`
-- `express`
-- `express-ts`
-- `fly`
-- `fly-ts`
-- `netlify`
-- `netlify-ts`
-- `remix`
-- `remix-ts`
-- `vercel`
-- `vercel-ts`
-
-**Changelog**:
-
-| Version                                                                   | Details                         |
-| ------------------------------------------------------------------------- | ------------------------------- |
-| [`v1.1.5`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.5) | Pulled latest updates           |
-| [`v1.1.4`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.4) | Pulled latest updates           |
-| [`v1.1.1`](https://github.com/spencerlabs/create-jam/releases/tag/v1.1.1) | Pulled latest updates           |
-| [`v0.6.1`](https://github.com/spencerlabs/create-jam/releases/tag/v0.6.1) | Pulled latest updates           |
-| [`v0.1.0`](https://github.com/spencerlabs/create-jam/releases/tag/v0.1.0) | Added templates to `create-jam` |
-
-## Vite
-
-**Website**: [vitejs.dev](https://vitejs.dev/)
-
-**ID**: `vite`
-
-**Templates**:
-
-- `vanilla`
-- `vanilla-ts`
-- `vue`
-- `vue-ts`
-- `react`
-- `react-ts`
-- `preact`
-- `preact-ts`
-- `lit`
-- `lit-ts`
-- `svelte`
-- `svelte-ts`
-
-**Changelog**:
-
-| Version                                                                   | Details                         |
-| ------------------------------------------------------------------------- | ------------------------------- |
-| [`v0.4.0`](https://github.com/spencerlabs/create-jam/releases/tag/v0.4.0) | Added templates to `create-jam` |
+## [Angular](https://angular.io)
+
+<!-- tabs:start -->
+#### **yarn**
+```bash
+yarn create jam angular
+```
+
+#### **npm**
+```bash
+npm init jam angular
+```
+
+#### **npx**
+```bash
+npx create-jam angular
+```
+<!-- tabs:end -->
+
+## [Astro](https://astro.build)
+
+<!-- tabs:start -->
+#### **yarn**
+```bash
+yarn create jam astro
+```
+
+#### **npm**
+```bash
+npm init jam astro
+```
+
+#### **npx**
+```bash
+npx create-jam astro
+```
+<!-- tabs:end -->
+
+## [Blitz](https://blitzjs.com)
+
+<!-- tabs:start -->
+#### **yarn**
+```bash
+yarn create jam blitz
+```
+
+#### **npm**
+```bash
+npm init jam blitz
+```
+
+#### **npx**
+```bash
+npx create-jam blitz
+```
+<!-- tabs:end -->
+
+## [Docsify](https://docsify.js.org)
+
+<!-- tabs:start -->
+#### **yarn**
+```bash
+yarn create jam docsify
+```
+
+#### **npm**
+```bash
+npm init jam docsify
+```
+
+#### **npx**
+```bash
+npx create-jam docsify
+```
+<!-- tabs:end -->
+
+## [Docusaurus](https://docusaurus.io/)
+
+<!-- tabs:start -->
+#### **yarn**
+```bash
+yarn create jam docusaurus
+```
+
+#### **npm**
+```bash
+npm init jam docusaurus
+```
+
+#### **npx**
+```bash
+npx create-jam docusaurus
+```
+<!-- tabs:end -->
+
+## [Gatsby](https://www.gatsbyjs.com)
+
+<!-- tabs:start -->
+#### **yarn**
+```bash
+yarn create jam gatsby
+```
+
+#### **npm**
+```bash
+npm init jam gatsby
+```
+
+#### **npx**
+```bash
+npx create-jam gatsby
+```
+<!-- tabs:end -->
+
+## [Gridsome](https://gridsome.org)
+
+<!-- tabs:start -->
+#### **yarn**
+```bash
+yarn create jam gridsome
+```
+
+#### **npm**
+```bash
+npm init jam gridsome
+```
+
+#### **npx**
+```bash
+npx create-jam gridsome
+```
+<!-- tabs:end -->
+
+## [Hexo](https://hexo.io)
+
+<!-- tabs:start -->
+#### **yarn**
+```bash
+yarn create jam hexo
+```
+
+#### **npm**
+```bash
+npm init jam hexo
+```
+
+#### **npx**
+```bash
+npx create-jam hexo
+```
+<!-- tabs:end -->
+
+## [Nest](https://nestjs.com)
+
+<!-- tabs:start -->
+#### **yarn**
+```bash
+yarn create jam nest
+```
+
+#### **npm**
+```bash
+npm init jam nest
+```
+
+#### **npx**
+```bash
+npx create-jam nest
+```
+<!-- tabs:end -->
+
+## [Next.js](https://nextjs.org)
+
+<!-- tabs:start -->
+#### **yarn**
+```bash
+yarn create jam next
+```
+
+#### **npm**
+```bash
+npm init jam next
+```
+
+#### **npx**
+```bash
+npx create-jam next
+```
+<!-- tabs:end -->
+
+## [Nuxt](https://nuxt.com)
+
+<!-- tabs:start -->
+#### **yarn**
+```bash
+yarn create jam nuxt
+```
+
+#### **npm**
+```bash
+npm init jam nuxt
+```
+
+#### **npx**
+```bash
+npx create-jam nuxt
+```
+<!-- tabs:end -->
+
+## [Preact](https://preactjs.com)
+
+<!-- tabs:start -->
+#### **yarn**
+```bash
+yarn create jam preact
+```
+
+#### **npm**
+```bash
+npm init jam preact
+```
+
+#### **npx**
+```bash
+npx create-jam preact
+```
+<!-- tabs:end -->
+
+## [Quasar](https://quasar.dev)
+
+<!-- tabs:start -->
+#### **yarn**
+```bash
+yarn create jam quasar
+```
+
+#### **npm**
+```bash
+npm init jam quasar
+```
+
+#### **npx**
+```bash
+npx create-jam quasar
+```
+<!-- tabs:end -->
+
+## [React](https://create-react-app.dev)
+
+<!-- tabs:start -->
+#### **yarn**
+```bash
+yarn create jam react
+```
+
+#### **npm**
+```bash
+npm init jam react
+```
+
+#### **npx**
+```bash
+npx create-jam react
+```
+<!-- tabs:end -->
+
+## [Redwood](https://redwoodjs.com)
+
+<!-- tabs:start -->
+#### **yarn**
+```bash
+yarn create jam redwood
+```
+
+#### **npm**
+```bash
+npm init jam redwood
+```
+
+#### **npx**
+```bash
+npx create-jam redwood
+```
+<!-- tabs:end -->
+
+## [Remix](https://remix.run)
+
+<!-- tabs:start -->
+#### **yarn**
+```bash
+yarn create jam remix
+```
+
+#### **npm**
+```bash
+npm init jam remix
+```
+
+#### **npx**
+```bash
+npx create-jam remix
+```
+<!-- tabs:end -->
+
+## [Stencil](https://stenciljs.com)
+
+<!-- tabs:start -->
+#### **yarn**
+```bash
+yarn create jam stencil
+```
+
+#### **npm**
+```bash
+npm init jam stencil
+```
+
+#### **npx**
+```bash
+npx create-jam stencil
+```
+<!-- tabs:end -->
+
+## [SvelteKit](https://kit.svelte.dev)
+
+<!-- tabs:start -->
+#### **yarn**
+```bash
+yarn create jam sveltekit
+```
+
+#### **npm**
+```bash
+npm init jam sveltekit
+```
+
+#### **npx**
+```bash
+npx create-jam sveltekit
+```
+<!-- tabs:end -->
+
+## [Vite](https://vitejs.dev)
+
+<!-- tabs:start -->
+#### **yarn**
+```bash
+yarn create jam vite
+```
+
+#### **npm**
+```bash
+npm init jam vite
+```
+
+#### **npx**
+```bash
+npx create-jam vite
+```
+<!-- tabs:end -->
+
+## [VuePress](https://vuepress.vuejs.org)
+
+<!-- tabs:start -->
+#### **yarn**
+```bash
+yarn create jam vuepress
+```
+
+#### **npm**
+```bash
+npm init jam vuepress
+```
+
+#### **npx**
+```bash
+npx create-jam vuepress
+```
+<!-- tabs:end -->
