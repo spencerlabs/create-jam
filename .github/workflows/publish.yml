@@ -18,18 +18,6 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
 
-      - if: github.event.release.prerelease
-        name: Get version number
-        id: version
-        run: |
-          VERSION=${{ github.event.release.tag_name }}
-          echo "version=${VERSION:1}" >> $GITHUB_OUTPUT
-
-      - if: github.event.release.prerelease
-        name: Prerelease
-        run: |
-          npm pkg set version=${{ steps.version.outputs.version }}
-
       - run: yarn
       - run: yarn build
       - run: npm publish --access public
@@ -51,18 +39,6 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
-
-      - if: github.event.release.prerelease
-        name: Get version number
-        id: version
-        run: |
-          VERSION=${{ github.event.release.tag_name }}
-          echo "version=${VERSION:1}" >> $GITHUB_OUTPUT
-
-      - if: github.event.release.prerelease
-        name: Prerelease
-        run: |
-          npm pkg set version=${{ steps.version.outputs.version }}
 
       - run: npm pkg set name=create-jam-app
       - run: yarn
