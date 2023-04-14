@@ -1,7 +1,7 @@
 {
   "name": "create-jam",
   "description": "Command line interface for quickly spinning up new Jamstack apps",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "type": "module",
   "repository": {
     "type": "git",
@@ -26,7 +26,7 @@
   ],
   "scripts": {
     "dev": "unbuild --stub",
-    "cli": "node index.js",
+    "jam": "node index.js",
     "test": "NODE_OPTIONS=--experimental-vm-modules yarn exec jest",
     "build": "unbuild",
     "lint": "eslint .",

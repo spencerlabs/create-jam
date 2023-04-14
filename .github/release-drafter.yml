@@ -12,6 +12,8 @@ categories:
     label: 'bug'
   - title: ':book: Documentation'
     label: 'documentation'
+  - title: ':gear: Maintenance'
+    label: 'maintenance'
 
 version-resolver:
   major:
@@ -24,6 +26,7 @@ version-resolver:
     labels:
       - 'bug'
       - 'documentation'
+      - 'maintenance'
 
 exclude-labels:
   - 'skip changelog'
