@@ -1,19 +1,23 @@
 name: CI
 on:
   push:
-    branches: [ "test" ]
+    branches: [ "next", "test" ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ "test" ]
+    branches: [ "next", "test" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
     steps:
     - uses: actions/checkout@v3
-    - name: Install packages
-      run: yarn
-    - name: Build CLI
-      run: yarn build
-    - name: Run tests
-      run: yarn test
+    - name: Node ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: yarn install
+    - run: yarn build
+    - run: yarn test

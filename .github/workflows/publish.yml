@@ -18,7 +18,7 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
 
-      - run: yarn
+      - run: yarn install
       - run: yarn build
       - run: npm publish --access public
         env:
@@ -41,7 +41,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - run: npm pkg set name=create-jam-app
-      - run: yarn
+      - run: yarn install
       - run: yarn build
       - run: npm publish --access public
         env:
