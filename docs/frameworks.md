@@ -18,6 +18,11 @@ yarn create jam angular
 npm init jam angular
 ```
 
+#### **pnpm**
+```bash
+pnpm create jam angular
+```
+
 #### **npx**
 ```bash
 npx create-jam angular
@@ -35,6 +40,11 @@ yarn create jam astro
 #### **npm**
 ```bash
 npm init jam astro
+```
+
+#### **pnpm**
+```bash
+pnpm create jam astro
 ```
 
 #### **npx**
@@ -56,6 +66,11 @@ yarn create jam blitz
 npm init jam blitz
 ```
 
+#### **pnpm**
+```bash
+pnpm create jam blitz
+```
+
 #### **npx**
 ```bash
 npx create-jam blitz
@@ -73,6 +88,11 @@ yarn create jam docsify
 #### **npm**
 ```bash
 npm init jam docsify
+```
+
+#### **pnpm**
+```bash
+pnpm create jam docsify
 ```
 
 #### **npx**
@@ -94,6 +114,11 @@ yarn create jam docusaurus
 npm init jam docusaurus
 ```
 
+#### **pnpm**
+```bash
+pnpm create jam docusaurus
+```
+
 #### **npx**
 ```bash
 npx create-jam docusaurus
@@ -111,6 +136,11 @@ yarn create jam gatsby
 #### **npm**
 ```bash
 npm init jam gatsby
+```
+
+#### **pnpm**
+```bash
+pnpm create jam gatsby
 ```
 
 #### **npx**
@@ -132,6 +162,11 @@ yarn create jam gridsome
 npm init jam gridsome
 ```
 
+#### **pnpm**
+```bash
+pnpm create jam gridsome
+```
+
 #### **npx**
 ```bash
 npx create-jam gridsome
@@ -149,6 +184,11 @@ yarn create jam hexo
 #### **npm**
 ```bash
 npm init jam hexo
+```
+
+#### **pnpm**
+```bash
+pnpm create jam hexo
 ```
 
 #### **npx**
@@ -170,6 +210,11 @@ yarn create jam nest
 npm init jam nest
 ```
 
+#### **pnpm**
+```bash
+pnpm create jam nest
+```
+
 #### **npx**
 ```bash
 npx create-jam nest
@@ -187,6 +232,11 @@ yarn create jam next
 #### **npm**
 ```bash
 npm init jam next
+```
+
+#### **pnpm**
+```bash
+pnpm create jam next
 ```
 
 #### **npx**
@@ -208,6 +258,11 @@ yarn create jam nuxt
 npm init jam nuxt
 ```
 
+#### **pnpm**
+```bash
+pnpm create jam nuxt
+```
+
 #### **npx**
 ```bash
 npx create-jam nuxt
@@ -225,6 +280,11 @@ yarn create jam preact
 #### **npm**
 ```bash
 npm init jam preact
+```
+
+#### **pnpm**
+```bash
+pnpm create jam preact
 ```
 
 #### **npx**
@@ -246,6 +306,11 @@ yarn create jam quasar
 npm init jam quasar
 ```
 
+#### **pnpm**
+```bash
+pnpm create jam quasar
+```
+
 #### **npx**
 ```bash
 npx create-jam quasar
@@ -263,6 +328,11 @@ yarn create jam react
 #### **npm**
 ```bash
 npm init jam react
+```
+
+#### **pnpm**
+```bash
+pnpm create jam react
 ```
 
 #### **npx**
@@ -284,6 +354,11 @@ yarn create jam redwood
 npm init jam redwood
 ```
 
+#### **pnpm**
+```bash
+pnpm create jam redwood
+```
+
 #### **npx**
 ```bash
 npx create-jam redwood
@@ -301,6 +376,11 @@ yarn create jam remix
 #### **npm**
 ```bash
 npm init jam remix
+```
+
+#### **pnpm**
+```bash
+pnpm create jam remix
 ```
 
 #### **npx**
@@ -322,6 +402,11 @@ yarn create jam stencil
 npm init jam stencil
 ```
 
+#### **pnpm**
+```bash
+pnpm create jam stencil
+```
+
 #### **npx**
 ```bash
 npx create-jam stencil
@@ -339,6 +424,11 @@ yarn create jam sveltekit
 #### **npm**
 ```bash
 npm init jam sveltekit
+```
+
+#### **pnpm**
+```bash
+pnpm create jam sveltekit
 ```
 
 #### **npx**
@@ -360,6 +450,11 @@ yarn create jam vite
 npm init jam vite
 ```
 
+#### **pnpm**
+```bash
+pnpm create jam vite
+```
+
 #### **npx**
 ```bash
 npx create-jam vite
@@ -377,6 +472,11 @@ yarn create jam vuepress
 #### **npm**
 ```bash
 npm init jam vuepress
+```
+
+#### **pnpm**
+```bash
+pnpm create jam vuepress
 ```
 
 #### **npx**

@@ -13,6 +13,11 @@ yarn create jam [framework] [options...]
 npm init jam [framework] [options...]
 ```
 
+#### **pnpm**
+```bash
+pnpm create jam [framework] [options...]
+```
+
 #### **npx**
 ```bash
 npx create-jam [framework] [options...]
@@ -32,6 +37,11 @@ yarn create jam-app [framework] [options...]
 #### **npm**
 ```bash
 npm init jam-app [framework] [options...]
+```
+
+#### **pnpm**
+```bash
+pnpm create jam-app [framework] [options...]
 ```
 
 #### **npx**
@@ -55,6 +65,11 @@ yarn create jam react [options...]
 #### **npm**
 ```bash
 npm init jam react [options...]
+```
+
+#### **pnpm**
+```bash
+pnpm create jam react [options...]
 ```
 
 #### **npx**
@@ -82,6 +97,14 @@ npm init jam react example-app --typescript
 
 # is the equivalent of
 npm init react-app example-app --typescript
+```
+
+#### **pnpm**
+```bash
+pnpm create jam react example-app --typescript
+
+# is the equivalent of
+pnpm create react-app example-app --typescript
 ```
 
 #### **npx**

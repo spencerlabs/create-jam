@@ -13,6 +13,11 @@ yarn create jam
 npm init jam
 ```
 
+#### **pnpm**
+```bash
+pnpm create jam
+```
+
 #### **npx**
 ```bash
 npx create-jam
