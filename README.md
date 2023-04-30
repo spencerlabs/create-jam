@@ -4,6 +4,22 @@ Create [Jamstack](https://jamstack.org) apps from the most popular frameworks in
 
 <p align="center"><img src="/img/demo.gif?raw=true"/></p>
 
+## Quick Start
+
+```bash
+# yarn
+yarn create jam
+
+# npm
+npm init jam
+
+# pnpm
+pnpm create jam
+
+# npx
+npx create-jam
+```
+
 ## Documentation
 
 Head to [createjam.app](https://createjam.app/) to view the latest documentation.
